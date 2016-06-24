@@ -12,6 +12,7 @@ class mofed (
   $openibd_service_hasrestart   = $mofed::params::openibd_service_hasrestart,
   $openib_config_path           = $mofed::params::openib_config_path,
   $openib_shellvars             = {},
+  $interfaces                   = {}
 ) inherits mofed::params {
 
   include mofed::repo
@@ -25,5 +26,7 @@ class mofed (
   Class['mofed::config']~>
   Class['mofed::service']->
   anchor { 'mofed::end': }
+
+  create_resources('mofed::interface', $interfaces)
 
 }

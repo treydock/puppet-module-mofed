@@ -4,11 +4,13 @@ class mofed::config {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  Shellvar {
-    ensure  => present,
-    target  => $mofed::openib_config_path,
-  }
+  if $mofed::manage_config {
+    Shellvar {
+      ensure  => present,
+      target  => $mofed::openib_config_path,
+    }
 
-  create_resources('shellvar', $mofed::openib_shellvars)
+    create_resources('shellvar', $mofed::openib_shellvars)
+  }
 
 }

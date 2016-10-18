@@ -29,13 +29,19 @@ define mofed::interface(
     $onboot = 'no'
   }
 
+  if $mofed::restart_service {
+    $_notify = Service['openibd']
+  } else {
+    $_notify = undef
+  }
+
   file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
     ensure  => $ensure,
     content => template('mofed/ifcfg.erb'),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    notify  => Service['openibd'],
+    notify  => $_notify,
   }
 
 }

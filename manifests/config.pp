@@ -5,12 +5,19 @@ class mofed::config {
   }
 
   if $mofed::manage_config {
-    Shellvar {
-      ensure  => present,
-      target  => $mofed::openib_config_path,
+    if $mofed::restart_service {
+      $_notify = Service['openibd']
+    } else {
+      $_notify = undef
     }
 
-    create_resources('shellvar', $mofed::openib_shellvars)
+    $_shellvar_defaults = {
+      ensure  => present,
+      target  => $mofed::openib_config_path,
+      notify  => $_notify,
+    }
+
+    create_resources('shellvar', $mofed::openib_shellvars, $_shellvar_defaults)
   }
 
 }

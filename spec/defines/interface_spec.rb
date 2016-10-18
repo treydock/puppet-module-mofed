@@ -37,7 +37,7 @@ describe 'mofed::interface' do
           'owner'   => 'root',
           'group'   => 'root',
           'mode'    => '0644',
-          'notify'  => 'Service[openibd]',
+          'notify'  => nil,
         })
       end
 
@@ -84,6 +84,14 @@ describe 'mofed::interface' do
         end
 
         it { should contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_with_gateway')) }
+      end
+
+      context 'restart_service => true' do
+         let(:pre_condition) do
+            "class { 'mofed': restart_service => true }"
+         end
+
+         it { should contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_notify('Service[openibd]') }
       end
     end
   end

@@ -4,8 +4,12 @@ class mofed::service {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  if $mofed::openibd_service_enable in ['UNSET', 'undef'] {
-    $_enable = undef
+  if is_string($mofed::openibd_service_enable) {
+    if $mofed::openibd_service_enable in ['UNSET', 'undef'] {
+      $_enable = undef
+    } else {
+      $_enable = $mofed::openibd_service_enable
+    }
   } else {
     $_enable = $mofed::openibd_service_enable
   }

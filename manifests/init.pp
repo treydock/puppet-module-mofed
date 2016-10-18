@@ -8,6 +8,7 @@ class mofed (
   $package_name                 = $mofed::params::package_name,
   $extra_packages               = undef,
   $manage_service               = true,
+  $restart_service              = false,
   $openibd_service_name         = $mofed::params::openibd_service_name,
   $openibd_service_ensure       = 'running',
   $openibd_service_enable       = true,
@@ -23,7 +24,8 @@ class mofed (
     $manage_repo,
     $manage_packages,
     $manage_config,
-    $manage_service
+    $manage_service,
+    $restart_service
   )
 
   include mofed::repo
@@ -34,7 +36,7 @@ class mofed (
   anchor { 'mofed::start': }->
   Class['mofed::repo']->
   Class['mofed::install']->
-  Class['mofed::config']~>
+  Class['mofed::config']->
   Class['mofed::service']->
   anchor { 'mofed::end': }
 

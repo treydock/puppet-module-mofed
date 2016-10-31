@@ -24,7 +24,7 @@ describe 'mofed' do
       it { is_expected.to contain_anchor('mofed::start').that_comes_before('Class[mofed::repo]') }
       it { is_expected.to contain_class('mofed::repo').that_comes_before('Class[mofed::install]') }
       it { is_expected.to contain_class('mofed::install').that_comes_before('Class[mofed::config]') }
-      it { is_expected.to contain_class('mofed::config').that_notifies('Class[mofed::service]') }
+      it { is_expected.to contain_class('mofed::config').that_comes_before('Class[mofed::service]') }
       it { is_expected.to contain_class('mofed::service').that_comes_before('Anchor[mofed::end]') }
       it { is_expected.to contain_anchor('mofed::end') }
 

@@ -33,12 +33,12 @@ class mofed (
   include mofed::config
   include mofed::service
 
-  anchor { 'mofed::start': }->
-  Class['mofed::repo']->
-  Class['mofed::install']->
-  Class['mofed::config']->
-  Class['mofed::service']->
-  anchor { 'mofed::end': }
+  anchor { 'mofed::start': }
+  -> Class['mofed::repo']
+  -> Class['mofed::install']
+  -> Class['mofed::config']
+  -> Class['mofed::service']
+  -> anchor { 'mofed::end': }
 
   create_resources('mofed::interface', $interfaces)
 

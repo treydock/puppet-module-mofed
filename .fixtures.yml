@@ -8,5 +8,7 @@ fixtures:
       repo: git://github.com/hercules-team/augeasproviders_shellvar.git
     systemd:
       repo: https://github.com/camptocamp/puppet-systemd.git
+    rsyslog:
+      repo: https://github.com/saz/puppet-rsyslog.git
   symlinks:
     mofed: "#{source_dir}"

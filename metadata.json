@@ -8,8 +8,9 @@
   "issues_url": "https://github.com/treydock/puppet-module-mofed/issues",
   "project_page": "https://github.com/treydock/puppet-module-mofed",
   "dependencies": [
-    { "name": "puppetlabs-stdlib", "version_range": ">= 3.2.0 <5.0.0" },
-    { "name": "herculesteam/augeasproviders_shellvar", "version_requirement": "2.x" }
+    { "name": "puppetlabs/stdlib", "version_range": ">= 3.2.0 <5.0.0" },
+    { "name": "herculesteam/augeasproviders_shellvar", "version_requirement": "2.x" },
+    { "name": "camptocamp/systemd", "version_requirement": ">= 0.3.0 <1.0.0" }
   ]
 }
 

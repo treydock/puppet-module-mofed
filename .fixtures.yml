@@ -6,5 +6,7 @@ fixtures:
       repo: git://github.com/hercules-team/augeasproviders_core.git
     augeasproviders_shellvar:
       repo: git://github.com/hercules-team/augeasproviders_shellvar.git
+    systemd:
+      repo: https://github.com/camptocamp/puppet-systemd.git
   symlinks:
     mofed: "#{source_dir}"

@@ -1,0 +1,5 @@
+######## Managed by Puppet #########
+SWEEP=<%= scope['mofed::opensm::sweep'] %>
+<%- scope['mofed::opensm::ports'].each.with_index(1) do |port, i| -%>
+PORT_<%= i %>=<%= port %>
+<%- end -%>

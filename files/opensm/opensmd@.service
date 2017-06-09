@@ -1,0 +1,18 @@
+######## Managed by Puppet #########
+[Unit]
+After=openibd.service
+
+[Service]
+Type=forking
+KillMode=process
+PIDFile=/var/run/opensm_%i.pid
+EnvironmentFile=/etc/sysconfig/opensm
+ExecStart=/bin/sh -c '\
+  /usr/sbin/opensm --daemon \
+  --guid $(ibstat $PORT_%i | grep "Port GUID" | cut -d: -f2) \
+  -s ${SWEEP} \
+  -f /var/log/opensm-$(echo $PORT_%i | tr " " "-").log \
+  --pid_file /var/run/opensm_%i.pid'
+
+[Install]
+WantedBy=multi-user.target

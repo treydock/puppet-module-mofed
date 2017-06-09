@@ -1,0 +1,4 @@
+######## Managed by Puppet #########
+<%- scope['mofed::srp::ports'].each.with_index(1) do |port, i| -%>
+PORT_<%= i %>=<%= port %>
+<%- end -%>

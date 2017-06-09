@@ -1,0 +1,20 @@
+######## Managed by Puppet #########
+[Unit]
+After=syslog.target openibd.service
+
+[Service]
+Type=forking
+KillMode=process
+#PIDFile=/var/run/srpd-%i.pid
+EnvironmentFile=/etc/sysconfig/srpd
+ExecStartPre=/sbin/modprobe ib_srp
+ExecStart=/bin/sh -c '\
+  /usr/sbin/srp_daemon \
+  -R 30 -T 10 -t 7000 \
+  -a -n -c -e \
+  -i $(echo $PORT_%i | cut -d" " -f1) \
+  -p $(echo $PORT_%i | cut -d" " -f2) \
+  &'
+
+[Install]
+WantedBy=multi-user.target

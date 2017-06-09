@@ -10,9 +10,21 @@ class mofed::opensm (
   case $ensure {
     'present': {
       $package_ensure = 'present'
+      $file_ensure    = 'file'
+      $service_ensure = 'running'
+      $service_enable = true
     }
     'absent': {
       $package_ensure = 'absent'
+      $file_ensure    = 'absent'
+      $service_ensure = 'stopped'
+      $service_enable = false
+    }
+    'disabled': {
+      $package_ensure = 'present'
+      $file_ensure    = 'file'
+      $service_ensure = 'stopped'
+      $service_enable = false
     }
     default: {
       # Do nothing
@@ -20,7 +32,7 @@ class mofed::opensm (
   }
 
   package { 'opensm':
-    ensure  => 'present',
+    ensure  => $package_ensure,
     require => Class['mofed::repo'],
   }
 
@@ -28,7 +40,7 @@ class mofed::opensm (
   # - $sweep
   # - $ports
   file { '/etc/sysconfig/opensm':
-    ensure  => 'file',
+    ensure  => $file_ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -36,10 +48,12 @@ class mofed::opensm (
     require => Package['opensm'],
   }
 
+  # opensmd can not be limited to specific ports
+  # so only run if ports are not defined
   if empty($ports) {
     service { 'opensmd':
-      ensure     => 'running',
-      enable     => true,
+      ensure     => $service_ensure,
+      enable     => $service_enable,
       hasstatus  => true,
       hasrestart => true,
       subscribe  => File['/etc/sysconfig/opensm'],
@@ -55,14 +69,15 @@ class mofed::opensm (
 
     if versioncmp($::operatingsystemrelease, '7.0') >= 0 {
       systemd::unit_file { 'opensmd@.service':
+        ensure => $file_ensure,
         source => 'puppet:///modules/mofed/opensm/opensmd@.service',
       }
 
       $ports.each |Integer $index, String $port| {
         $i = $index + 1
         service { "opensmd@${i}":
-          ensure     => 'running',
-          enable     => true,
+          ensure     => $service_ensure,
+          enable     => $service_enable,
           hasstatus  => true,
           hasrestart => true,
           require    => Systemd::Unit_file['opensmd@.service'],

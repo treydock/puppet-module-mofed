@@ -55,9 +55,13 @@ describe 'mofed::opensm' do
         })
       end
 
+      it do
+        is_expected.not_to contain_systemd__unit_file('opensmd@.service')
+      end
+
       context 'when ports defined' do
         let(:params) {{
-          :ports => ['mlx5_0 1', 'mlx5_0 2'],
+          :ports => ['mlx5_0 1', 'mlx5_0 2']
         }}
 
         it { is_expected.to compile.with_all_deps }
@@ -82,7 +86,7 @@ describe 'mofed::opensm' do
 
         if facts[:operatingsystemrelease].to_i >= 7.0
           it do
-            is_expected.to contain_systemd__unit_file('opensmd@.service')
+            is_expected.to contain_systemd__unit_file('opensmd@.service').with_ensure('file')
           end
 
           it do
@@ -103,6 +107,62 @@ describe 'mofed::opensm' do
               :hasrestart => 'true',
               :subscribe  => 'File[/etc/sysconfig/opensm]'
             })
+          end
+        end
+      end
+
+      context 'when ensure=disabled' do
+        let(:params) {{ :ensure => 'disabled' }}
+
+        it { is_expected.to compile.with_all_deps }
+
+        it { is_expected.to contain_service('opensmd').with_ensure('stopped') }
+        it { is_expected.to contain_service('opensmd').with_enable('false') }
+
+        context 'when ports defined' do
+          let(:params) {{
+            :ensure => 'disabled',
+            :ports => ['mlx5_0 1', 'mlx5_0 2']
+          }}
+
+          it { is_expected.to compile.with_all_deps }
+
+          it { is_expected.to contain_service('opensmd').with_ensure('stopped') }
+          it { is_expected.to contain_service('opensmd').with_enable('false') }
+
+          if facts[:operatingsystemrelease].to_i >= 7.0
+            it { is_expected.to contain_service('opensmd@1').with_ensure('stopped') }
+            it { is_expected.to contain_service('opensmd@1').with_enable('false') }
+            it { is_expected.to contain_service('opensmd@2').with_ensure('stopped') }
+            it { is_expected.to contain_service('opensmd@2').with_enable('false') }
+          end
+        end
+      end
+
+      context 'when ensure=absent' do
+        let(:params) {{ :ensure => 'absent' }}
+
+        it { is_expected.to compile.with_all_deps }
+
+        it { is_expected.to contain_package('opensm').with_ensure('absent') }
+        it { is_expected.to contain_file('/etc/sysconfig/opensm').with_ensure('absent') }
+        it { is_expected.to contain_service('opensmd').with_ensure('stopped') }
+        it { is_expected.to contain_service('opensmd').with_enable('false') }
+
+        context 'when ports defined' do
+          let(:params) {{
+            :ensure => 'absent',
+            :ports => ['mlx5_0 1', 'mlx5_0 2']
+          }}
+
+          it { is_expected.to compile.with_all_deps }
+
+          if facts[:operatingsystemrelease].to_i >= 7.0
+            it { is_expected.to contain_systemd__unit_file('opensmd@.service').with_ensure('absent') }
+            it { is_expected.to contain_service('opensmd@1').with_ensure('stopped') }
+            it { is_expected.to contain_service('opensmd@1').with_enable('false') }
+            it { is_expected.to contain_service('opensmd@2').with_ensure('stopped') }
+            it { is_expected.to contain_service('opensmd@2').with_enable('false') }
           end
         end
       end

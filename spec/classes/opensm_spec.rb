@@ -95,7 +95,8 @@ describe 'mofed::opensm' do
               :enable     => 'true',
               :hasstatus  => 'true',
               :hasrestart => 'true',
-              :subscribe  => 'File[/etc/sysconfig/opensm]'
+              :require    => 'Exec[systemctl-daemon-reload]',
+              :subscribe  => ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]']
             })
           end
 
@@ -105,7 +106,8 @@ describe 'mofed::opensm' do
               :enable     => 'true',
               :hasstatus  => 'true',
               :hasrestart => 'true',
-              :subscribe  => 'File[/etc/sysconfig/opensm]'
+              :require    => 'Exec[systemctl-daemon-reload]',
+              :subscribe  => ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]']
             })
           end
         end

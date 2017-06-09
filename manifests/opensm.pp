@@ -80,8 +80,11 @@ class mofed::opensm (
           enable     => $service_enable,
           hasstatus  => true,
           hasrestart => true,
-          require    => Systemd::Unit_file['opensmd@.service'],
-          subscribe  => File['/etc/sysconfig/opensm'],
+          require    => Exec['systemctl-daemon-reload'],
+          subscribe  => [
+            File['/etc/sysconfig/opensm'],
+            Systemd::Unit_file['opensmd@.service']
+          ]
         }
       }
     }

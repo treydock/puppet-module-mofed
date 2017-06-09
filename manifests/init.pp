@@ -28,6 +28,12 @@ class mofed (
     $restart_service
   )
 
+  if $mofed::restart_service {
+    $openib_shellvar_notify = Service['openibd']
+  } else {
+    $openib_shellvar_notify = undef
+  }
+
   include mofed::repo
   include mofed::install
   include mofed::config

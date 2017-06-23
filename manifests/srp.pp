@@ -40,10 +40,11 @@ class mofed::srp (
 
   if $mofed::manage_config {
     shellvar { 'SRP_LOAD':
-      ensure => 'present',
-      target => $mofed::openib_config_path,
-      value  => $srp_load,
-      notify => $mofed::openib_shellvar_notify,
+      ensure  => 'present',
+      target  => $mofed::openib_config_path,
+      value   => $srp_load,
+      notify  => $mofed::openib_shellvar_notify,
+      require => Class['::mofed::install'],
     }
   }
 

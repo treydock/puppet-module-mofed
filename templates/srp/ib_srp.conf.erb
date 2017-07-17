@@ -1,0 +1,2 @@
+######## Managed by Puppet #########
+options ib_srp <%= scope['mofed::srp::ib_srp_options'].map { |k,v| "#{k}=#{v}" }.join(' ') %>

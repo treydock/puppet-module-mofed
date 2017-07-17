@@ -3,6 +3,7 @@ class mofed::srp (
   Enum['present', 'absent', 'disabled'] $ensure = 'present',
   Array $ports = [],
   Optional[Variant[String, Array]] $srp_daemon_config = undef,
+  Optional[Hash[String, Variant[String,Integer], 1]] $ib_srp_options = undef,
 ) inherits mofed::params {
 
   include mofed
@@ -82,6 +83,24 @@ class mofed::srp (
     require => Package['srptools'],
   }
 
+  # Template uses:
+  # - $ib_srp_options
+  if $ib_srp_options {
+    file { '/etc/modprobe.d/ib_srp.conf':
+      ensure  => $file_ensure,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('mofed/srp/ib_srp.conf.erb'),
+      require => Package['srptools'],
+    }
+  } else {
+    file { '/etc/modprobe.d/ib_srp.conf':
+      ensure  => 'absent',
+      require => Package['srptools'],
+    }
+  }
+
   # opensmd can not be limited to specific ports
   # so only run if ports are not defined
   if empty($ports) {
@@ -115,7 +134,10 @@ class mofed::srp (
           enable     => $service_enable,
           hasstatus  => true,
           hasrestart => true,
-          require    => Exec['systemctl-daemon-reload'],
+          require    => [
+            Exec['systemctl-daemon-reload'],
+            File['/etc/modprobe.d/ib_srp.conf'],
+          ],
           subscribe  => [
             File['/etc/sysconfig/srpd'],
             File['/etc/srp_daemon.conf'],

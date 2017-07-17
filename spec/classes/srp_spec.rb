@@ -81,6 +81,13 @@ describe 'mofed::srp' do
       end
 
       it do
+        is_expected.to contain_file('/etc/modprobe.d/ib_srp.conf').with({
+          :ensure  => 'absent',
+          :require => 'Package[srptools]',
+        })
+      end
+
+      it do
         is_expected.to contain_service('srpd').with({
           :ensure     => 'running',
           :enable     => 'true',
@@ -129,7 +136,7 @@ describe 'mofed::srp' do
               :enable     => 'true',
               :hasstatus  => 'true',
               :hasrestart => 'true',
-              :require    => 'Exec[systemctl-daemon-reload]',
+              :require    => ['Exec[systemctl-daemon-reload]', 'File[/etc/modprobe.d/ib_srp.conf]'],
               :subscribe  => ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]']
             })
           end
@@ -140,7 +147,7 @@ describe 'mofed::srp' do
               :enable     => 'true',
               :hasstatus  => 'true',
               :hasrestart => 'true',
-              :require    => 'Exec[systemctl-daemon-reload]',
+              :require    => ['Exec[systemctl-daemon-reload]', 'File[/etc/modprobe.d/ib_srp.conf]'],
               :subscribe  => ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]']
             })
           end

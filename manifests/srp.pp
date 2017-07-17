@@ -2,6 +2,7 @@
 class mofed::srp (
   Enum['present', 'absent', 'disabled'] $ensure = 'present',
   Array $ports = [],
+  Optional[Variant[String, Array]] $srp_daemon_config = undef,
 ) inherits mofed::params {
 
   include mofed
@@ -60,6 +61,17 @@ class mofed::srp (
   }
 
   # Template uses:
+  # - $srp_daemon_config
+  file { '/etc/srp_daemon.conf':
+    ensure  => $file_ensure,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('mofed/srp/srp_daemon.conf.erb'),
+    require => Package['srptools'],
+  }
+
+  # Template uses:
   # - $ports
   file { '/etc/sysconfig/srpd':
     ensure  => $file_ensure,
@@ -106,6 +118,7 @@ class mofed::srp (
           require    => Exec['systemctl-daemon-reload'],
           subscribe  => [
             File['/etc/sysconfig/srpd'],
+            File['/etc/srp_daemon.conf'],
             Systemd::Unit_file['srpd@.service'],
           ]
         }

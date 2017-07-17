@@ -53,6 +53,20 @@ describe 'mofed::srp' do
       end
 
       it do
+        is_expected.to contain_file('/etc/srp_daemon.conf').with({
+          :ensure  => 'file',
+          :owner   => 'root',
+          :group   => 'root',
+          :mode    => '0644',
+          :require => 'Package[srptools]',
+        })
+      end
+
+      it do
+        verify_exact_contents(catalogue, '/etc/srp_daemon.conf', [])
+      end
+
+      it do
         is_expected.to contain_file('/etc/sysconfig/srpd').with({
           :ensure  => 'file',
           :owner   => 'root',
@@ -116,7 +130,7 @@ describe 'mofed::srp' do
               :hasstatus  => 'true',
               :hasrestart => 'true',
               :require    => 'Exec[systemctl-daemon-reload]',
-              :subscribe  => ['File[/etc/sysconfig/srpd]', 'Systemd::Unit_file[srpd@.service]']
+              :subscribe  => ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]']
             })
           end
 
@@ -127,7 +141,7 @@ describe 'mofed::srp' do
               :hasstatus  => 'true',
               :hasrestart => 'true',
               :require    => 'Exec[systemctl-daemon-reload]',
-              :subscribe  => ['File[/etc/sysconfig/srpd]', 'Systemd::Unit_file[srpd@.service]']
+              :subscribe  => ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]']
             })
           end
         end

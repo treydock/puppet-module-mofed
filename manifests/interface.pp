@@ -4,29 +4,19 @@
 define mofed::interface(
   $ipaddr,
   $netmask,
-  $gateway        = 'UNSET',
-  $ensure         = 'present',
-  $enable         = true,
-  $connected_mode = 'yes',
-  $mtu            = 'UNSET'
+  $gateway                                    = 'UNSET',
+  Enum['present', 'absent'] $ensure           = 'present',
+  Variant[Boolean, Enum['yes', 'no']] $enable = true,
+  Enum['yes', 'no'] $connected_mode           = 'yes',
+  $mtu                                        = 'UNSET'
 ) {
 
   include mofed
 
-  validate_re($ensure, ['^present$','^absent$'])
-
-  $enable_real = is_string($enable) ? {
-    true  => str2bool($enable),
-    false => $enable,
-  }
-  validate_bool($enable_real)
-
-  validate_re($connected_mode, ['^yes$','^no$'])
-
-  if $enable_real {
-    $onboot = 'yes'
-  } else {
-    $onboot = 'no'
+  $onboot = $enable ? {
+    true    => 'yes',
+    false   => 'no',
+    default => $enable,
   }
 
   if $mofed::restart_service {

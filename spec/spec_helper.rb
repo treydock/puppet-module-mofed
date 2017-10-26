@@ -19,3 +19,7 @@ dir = File.expand_path(File.dirname(__FILE__))
 Dir["#{dir}/shared_examples/**/*.rb"].sort.each {|f| require f}
 
 at_exit { RSpec::Puppet::Coverage.report! }
+
+RSpec.configure do |config|
+  config.mock_with :rspec
+end

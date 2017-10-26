@@ -10,7 +10,7 @@ describe Facter::Util::MellanoxInfiniband do
 
   describe 'lspci' do
     it 'should return output' do
-      Facter::Util::Resolution.expects(:exec).with('lspci -n 2>/dev/null').returns("foo")
+      expect(Facter::Util::Resolution).to receive(:exec).with('lspci -n 2>/dev/null').and_return('foo')
       expect(Facter::Util::MellanoxInfiniband.lspci).to eq('foo')
     end
   end

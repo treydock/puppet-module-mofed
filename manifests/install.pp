@@ -10,8 +10,14 @@ class mofed::install {
       name   => $mofed::package_name,
     }
 
-    if $mofed::extra_packages {
-      ensure_packages($mofed::extra_packages)
+    if $mofed::extra_packages_hiera_merge {
+      $extra_packages = hiera_array('mofed::extra_packages', [])
+    } else {
+      $extra_packages = $mofed::extra_packages
+    }
+
+    if $extra_packages {
+      ensure_packages($extra_packages)
     }
   }
 

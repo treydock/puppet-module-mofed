@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "treydock",
   "summary": "Mellanox OFED Puppet module",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git://github.com/treydock/puppet-module-mofed.git",
   "issues_url": "https://github.com/treydock/puppet-module-mofed/issues",
   "project_page": "https://github.com/treydock/puppet-module-mofed",
@@ -23,7 +23,7 @@
     }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_range": ">= 4.13.1 <5.0.0" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.13.1 <5.0.0" },
     { "name": "herculesteam/augeasproviders_shellvar", "version_requirement": ">= 2.0.0 <3.0.0" },
     { "name": "camptocamp/systemd", "version_requirement": ">= 0.3.0 <2.0.0" },
     { "name": "saz/rsyslog", "version_requirement": ">= 3.5.0 <6.0.0" }

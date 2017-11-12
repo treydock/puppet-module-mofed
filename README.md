@@ -3,7 +3,7 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/fail2ban.svg)](https://forge.puppetlabs.com/treydock/fail2ban)
 [![Build Status](https://travis-ci.org/treydock/puppet-module-mofed.png)](https://travis-ci.org/treydock/puppet-module-mofed)
 
-####Table of Contents
+#### Table of Contents
 
 1. [Overview](#overview)
 2. [Usage - Configuration options](#usage)

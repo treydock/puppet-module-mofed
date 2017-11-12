@@ -2,6 +2,13 @@
 
 Release notes for the treydock-mofed module.
 
+## [1.2.0](https://github.com/treydock/puppet-module-mofed/tree/1.2.0) (2017-11-12)
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.1.0...1.2.0)
+
+**Merged pull requests:**
+
+- Use data types for all parameters [\#2](https://github.com/treydock/puppet-module-mofed/pull/2) ([treydock](https://github.com/treydock))
+
 ## [1.1.0](https://github.com/treydock/puppet-module-mofed/tree/1.1.0) (2017-11-02)
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.0.0...1.1.0)
 

@@ -1,6 +1,6 @@
 # puppet-module-mofed
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/fail2ban.svg)](https://forge.puppetlabs.com/treydock/fail2ban)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/mofed.svg)](https://forge.puppetlabs.com/treydock/mofed)
 [![Build Status](https://travis-ci.org/treydock/puppet-module-mofed.png)](https://travis-ci.org/treydock/puppet-module-mofed)
 
 #### Table of Contents

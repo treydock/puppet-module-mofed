@@ -1,12 +1,9 @@
-# Fact: has_infiniband
+# Fact: has_mellanox_infiniband
 #
-# Purpose: Determine if the system's hardware supports InfiniBand.
+# Purpose: Determine if the system's hardware supports Mellanox InfiniBand.
 #
 # Resolution:
 #   Returns true or false based on output from `lspci`.
-#
-# Caveats:
-#   Currently only tested with Mellanox and Qlogic cards installed in a system.
 #
 
 require 'facter/util/mellanox_infiniband'

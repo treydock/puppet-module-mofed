@@ -2,6 +2,17 @@
 
 Release notes for the treydock-mofed module.
 
+## [1.3.0](https://github.com/treydock/puppet-module-mofed/tree/1.3.0) (2018-05-18)
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.2.0...1.3.0)
+
+**Implemented enhancements:**
+
+- Add mellanox\_ofed\_version fact [\#3](https://github.com/treydock/puppet-module-mofed/pull/3) ([treydock](https://github.com/treydock))
+
+**Fixed bugs:**
+
+- Fix has\_mellanox\_infiniband fact to not throw error without lspci present [\#4](https://github.com/treydock/puppet-module-mofed/pull/4) ([treydock](https://github.com/treydock))
+
 ## [1.2.0](https://github.com/treydock/puppet-module-mofed/tree/1.2.0) (2017-11-12)
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.1.0...1.2.0)
 

@@ -1,11 +1,12 @@
-00:1f.0 ISA bridge [0601]: Intel Corporation 82801JIR (ICH10R) LPC Interface Controller [8086:3a16]
-00:1f.2 SATA controller [0106]: Intel Corporation 82801JI (ICH10 Family) SATA AHCI Controller [8086:3a22]
-00:1f.3 SMBus [0c05]: Intel Corporation 82801JI (ICH10 Family) SMBus Controller [8086:3a30]
-01:00.0 Ethernet controller [0200]: Intel Corporation 82576 Gigabit Network Connection [8086:10c9] (rev 01)
-01:00.1 Ethernet controller [0200]: Intel Corporation 82576 Gigabit Network Connection [8086:10c9] (rev 01)
-02:00.0 InfiniBand [0c06]: QLogic Corp. IBA7220 InfiniBand HCA [1077:7220] (rev 02)
-05:00.0 IDE interface [0101]: JMicron Technology Corp. JMB368 IDE controller [197b:2368]
-06:04.0 VGA compatible controller [0300]: Matrox Electronics Systems Ltd. MGA G200eW WPCM450 [102b:0532] (rev 0a)
-06:05.0 FireWire (IEEE 1394) [0c00]: Texas Instruments TSB43AB22A IEEE-1394a-2000 Controller (PHY/Link) [iOHCI-Lynx] [104c:8023]
-80:00.0 PCI bridge [0604]: Intel Corporation 7500/5520/5500/X58 I/O Hub PCI Express Root Port 0 [8086:3420] (rev 13)
-80:01.0 PCI bridge [0604]: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Port 1 [8086:3408] (rev 13)
+00:1e.0 0604: 8086:244e (rev 90)
+00:1f.0 0601: 8086:3a16
+00:1f.2 0106: 8086:3a22
+00:1f.3 0c05: 8086:3a30
+01:03.0 0300: 102b:0532 (rev 0a)
+02:00.0 0200: 1924:0803
+02:00.1 0200: 1924:0803
+03:00.0 0200: 8086:10d3
+04:00.0 0200: 8086:10d3
+05:00.0 0104: 17d3:1880 (rev 05)
+07:00.0 0104: 17d3:1880 (rev 05)
+08:00.0 0c06: 1077:7322 (rev 02)

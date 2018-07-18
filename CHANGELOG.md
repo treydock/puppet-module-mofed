@@ -2,6 +2,13 @@
 
 Release notes for the treydock-mofed module.
 
+## [1.4.0](https://github.com/treydock/puppet-module-mofed/tree/1.4.0) (2018-07-18)
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.3.0...1.4.0)
+
+**Implemented enhancements:**
+
+- Add infiniband\_hcas fact and infiniband\_hca\_port\_guids fact [\#5](https://github.com/treydock/puppet-module-mofed/pull/5) ([treydock](https://github.com/treydock))
+
 ## [1.3.0](https://github.com/treydock/puppet-module-mofed/tree/1.3.0) (2018-05-18)
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.2.0...1.3.0)
 

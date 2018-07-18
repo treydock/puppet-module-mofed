@@ -26,4 +26,35 @@ class Facter::Util::MellanoxInfiniband
     end
     count
   end
+
+  # Returns array of HCAs on the system
+  #
+  # @return [Array]
+  #
+  # @api private
+  def self.get_hcas
+    hcas = []
+    if File.directory?('/sys/class/infiniband')
+      Dir.glob('/sys/class/infiniband/*').each do |dir|
+        hca = File.basename(dir)
+        hcas << hca
+      end
+    end
+    hcas
+  end
+
+  #
+  def self.get_hca_port_guids(hca)
+    port_guids = {}
+    if ! Facter::Util::Resolution.which('ibstat')
+      return {}
+    end
+    output = Facter::Util::Resolution.exec("ibstat -p #{hca}")
+    output.each_line.with_index do |line, index|
+      guid = line.strip()
+      port = index + 1
+      port_guids[port.to_s] = guid
+    end
+    port_guids
+  end
 end

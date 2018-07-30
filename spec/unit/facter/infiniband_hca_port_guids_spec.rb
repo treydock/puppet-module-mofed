@@ -25,6 +25,6 @@ describe 'infiniband_hca_port_guids fact' do
     allow(Facter.fact(:infiniband_hcas)).to receive(:value).and_return(['mlx5_0','mlx5_2'])
     allow(Facter::Util::MellanoxInfiniband).to receive(:get_hca_port_guids).with('mlx5_0').and_return({})
     allow(Facter::Util::MellanoxInfiniband).to receive(:get_hca_port_guids).with('mlx5_2').and_return({})
-    expect(Facter.fact(:infiniband_hca_port_guids).value).to eq({})
+    expect(Facter.fact(:infiniband_hca_port_guids).value).to be_nil
   end
 end

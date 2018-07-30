@@ -1,4 +1,19 @@
-# See README.md for more details.
+# @summary Manage OpenSM
+#
+# @example Manage OpenSM on two specific ports
+#   class { 'mofed::opensm':
+#     ports => ['mlx4_1 1', 'mlx4_1 2'],
+#   }
+#
+# @param ensure
+#   State of opensm.  `present` will run opensm.
+#   `disabled` will install and configure opensm but disable services.
+#   `absent` will remove opensm.
+# @param ports
+#   Ports used by opensm
+# @param sweep
+#   Value passsed to opensm `-s` argument.
+#
 class mofed::opensm (
   Enum['present', 'absent', 'disabled'] $ensure = 'present',
   Array $ports = [],

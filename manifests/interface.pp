@@ -1,6 +1,28 @@
-# == Define: mofed::interface
+# @summary Manage IPoIB interface
 #
-# See README.md for more details.
+# @example Add IPoIB interface
+#   mofed::interface { 'ib0':
+#     ensure         => 'present',
+#     ipaddr         => '10.0.0.1',
+#     netmask        => '255.255.0.0',
+#     connected_mode => 'no',
+#   }
+#
+# @param ipaddr
+#   Required IP address.
+# @param netmask
+#   Required netmask address.
+# @param gateway
+#   Gateway address, `UNSET` will leave the value undefined.
+# @param ensure
+#   Interface ensure value.
+# @param enable
+#   Boolean of whether to enable the interface at boot.
+# @param connected_mode
+#   The value for setting interface to connected mode.
+# @param mtu
+#   The MTU of the interface, `UNSET` will leave the value undefined.
+#
 define mofed::interface(
   $ipaddr,
   $netmask,

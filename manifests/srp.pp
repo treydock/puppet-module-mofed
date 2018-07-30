@@ -1,4 +1,21 @@
-# See README.md for more details.
+# @summary Manage SRP
+#
+# @example Manage SRP for specific ports
+#   class { 'mofed::srp':
+#    ports => ['mlx4_1 1', 'mlx4_1 2'],
+#   }
+#
+# @param ensure
+#   State of srp.  `present` will run opensm.
+#   `disabled` will install and configure opensm but disable services.
+#   `absent` will remove opensm.
+# @param ports
+#   Ports used by srp daemon.
+# @param srp_daemon_config
+#   Define lines in srp_daemon.conf
+# @param ib_srp_options
+#   Options passed to ib_srp kernel module
+#
 class mofed::srp (
   Enum['present', 'absent', 'disabled'] $ensure = 'present',
   Array $ports = [],

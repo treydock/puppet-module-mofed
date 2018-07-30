@@ -2,6 +2,17 @@
 
 Release notes for the treydock-mofed module.
 
+## [1.4.1](https://github.com/treydock/puppet-module-mofed/tree/1.4.1) (2018-07-31)
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.4.0...1.4.1)
+
+**Fixed bugs:**
+
+- Fix facts to not produce 'unexpected return' errors [\#6](https://github.com/treydock/puppet-module-mofed/pull/6) ([treydock](https://github.com/treydock))
+
+**Merged pull requests:**
+
+- Document with puppet-strings [\#7](https://github.com/treydock/puppet-module-mofed/pull/7) ([treydock](https://github.com/treydock))
+
 ## [1.4.0](https://github.com/treydock/puppet-module-mofed/tree/1.4.0) (2018-07-18)
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.3.0...1.4.0)
 

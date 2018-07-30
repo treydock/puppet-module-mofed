@@ -12,7 +12,6 @@ Facter.add(:infiniband_hca_port_guids) do
   confine :has_mellanox_infiniband => true
   setcode do
     hcas = Facter.fact(:infiniband_hcas).value
-    return nil if hcas.nil? || hcas.empty?
     hca_port_guids = {}
     hcas.each do |hca|
       port_guids = Facter::Util::MellanoxInfiniband.get_hca_port_guids(hca)
@@ -20,6 +19,10 @@ Facter.add(:infiniband_hca_port_guids) do
         hca_port_guids[hca] = port_guids
       end
     end
-    hca_port_guids
+    if hca_port_guids.empty?
+      nil
+    else
+      hca_port_guids
+    end
   end
 end

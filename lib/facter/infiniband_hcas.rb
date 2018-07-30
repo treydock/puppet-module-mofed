@@ -12,7 +12,10 @@ Facter.add(:infiniband_hcas) do
   confine :has_mellanox_infiniband => true
   setcode do
     hcas = Facter::Util::MellanoxInfiniband.get_hcas
-    return nil if hcas.empty?
-    hcas
+    if hcas.empty?
+      nil
+    else
+      hcas
+    end
   end
 end

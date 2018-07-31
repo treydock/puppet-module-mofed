@@ -11,7 +11,7 @@ require 'facter/util/mellanox_infiniband'
 Facter.add(:infiniband_hca_port_guids) do
   confine :has_mellanox_infiniband => true
   setcode do
-    hcas = Facter.fact(:infiniband_hcas).value
+    hcas = Facter.fact(:infiniband_hcas).value || []
     hca_port_guids = {}
     hcas.each do |hca|
       port_guids = Facter::Util::MellanoxInfiniband.get_hca_port_guids(hca)

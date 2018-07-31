@@ -2,6 +2,13 @@
 
 Release notes for the treydock-mofed module.
 
+## [1.4.2](https://github.com/treydock/puppet-module-mofed/tree/1.4.2) (2018-07-31)
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.4.1...1.4.2)
+
+**Fixed bugs:**
+
+- Fix infiniband\_hca\_port\_guids when IB stack is not functional [\#8](https://github.com/treydock/puppet-module-mofed/pull/8) ([treydock](https://github.com/treydock))
+
 ## [1.4.1](https://github.com/treydock/puppet-module-mofed/tree/1.4.1) (2018-07-31)
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.4.0...1.4.1)
 

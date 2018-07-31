@@ -8,6 +8,7 @@
 1. [Overview](#overview)
 2. [Usage - Configuration options](#usage)
 3. [Reference - Parameter and detailed reference to all options](#reference)
+    * [Facts](#facts)
 4. [Limitations - OS compatibility, etc.](#limitations)
 5. [Development - Guide for contributing to the module](#development)
 6. [TODO](#todo)
@@ -67,26 +68,58 @@ Add srp for 2 ports.
 
 ## Reference
 
-### Classes
+[http://treydock.github.io/puppet-module-mofed/](http://treydock.github.io/puppet-module-mofed/)
 
-#### Public classes
+### Facts
 
-* `mofed`: Installs and configures mofed.
-* `mofed::opensm`: Installs and configures opensm.
-* `mofed::srp`: Installs and configures SRP daemon.
+#### has\_mellanox\_infiniband
 
-#### Private classes
+This boolean fact will return `true` if the system has a Mellanox Infiniband card.
 
-* `mofed::install`: Installs mofed packages.
-* `mofed::config`: Configures mofed.
-* `mofed::service`: Manages the mofed service.
-* `mofed::params`: Sets parameter defaults based on fact values.
+#### mellanox\_ofed\_version
 
-### Parameters
+Returns the Mellanox OFED version that is installed
 
-#### mofed
+#### infiniband\_hcas
 
-TODO
+Return array of HCAs on the system.
+
+Example:
+
+```shell
+# facter -p infiniband_hcas
+[
+  "mlx5_0",
+  "mlx5_1",
+  "mlx5_2",
+  "mlx5_3"
+]
+```
+
+#### infiniband\_hca\_port\_guids
+
+Return hash of HCA port GUIDs.
+
+Example:
+
+```shell
+# facter -p infiniband_hca_port_guids
+{
+  mlx5_0 => {
+    1 => "0x506b4b0300cc4348"
+  },
+  mlx5_1 => {
+    1 => "0x506b4b0300cc4349"
+  },
+  mlx5_2 => {
+    1 => "0x506b4b0300cc4342"
+  },
+  mlx5_3 => {
+    1 => "0x506b4b0300cc4343"
+  }
+}
+
+```
 
 ## Limitations
 

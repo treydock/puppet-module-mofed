@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: mofed
+  
+    &mdash; Documentation by YARD 0.9.19
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::mofed";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (m)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">mofed</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: mofed</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd><span class='object_link'><a href="mofed_3A_3Aparams.html" title="puppet_classes::mofed::params (puppet_class)">mofed::params</a></span></dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+
+  <h2>Summary</h2>
+  Manage Mellanox OFED
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+  </div>
+</div>
+
+
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Basic usage using local yum repo for MOFED</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;mofed&#39;:
+  repo_baseurl =&gt; &#39;http://example.com/mlnx/$releasever/3.4-2.0.0.0-rhel7.3/&#39;
+  repo_gpgkey  =&gt; &#39;http://example.com/mlnx/$releasever/3.4-2.0.0.0-rhel7.3/RPM-GPG-KEY-Mellanox&#39;,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>manage_repo</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean to set if MOFED repo should be managed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repo_baseurl</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The baseurl of the yumrepo resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repo_gpgkey</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The gpgkey of the yumrepo resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_packages</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean to determine if packages should be managed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;present&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The package ensure property</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$mofed::params::package_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The MOFED package name to install</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_packages</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An array of additional packages to install</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>extra_packages_hiera_merge</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that sets if extra_packages should have values merged from hiera</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_service</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that determines if the openibd service should be managed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>restart_service</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that sets of openibd should be restarted</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openibd_service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the openibd service</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openibd_service_ensure</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;running&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>openibd service ensure property</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openibd_service_enable</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>openibd service enable property</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openibd_service_hasstatus</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_hasstatus</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>openibd service hasstatus property</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openibd_service_hasrestart</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_hasrestart</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>openibd service hasrestart property</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>manage_config</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Boolean that sets if configs should be managed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openib_config_path</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$mofed::params::openib_config_path</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to openib.conf</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>openib_shellvars</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of shellvar resources</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>interfaces</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of mofed::interface resources</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 48</span>
+
+class mofed (
+  Boolean $manage_repo                      = true,
+  Optional[String] $repo_baseurl            = undef,
+  Optional[String] $repo_gpgkey             = undef,
+  Boolean $manage_packages                  = true,
+  String $package_ensure                    = &#39;present&#39;,
+  String $package_name                      = $mofed::params::package_name,
+  Optional[Array] $extra_packages           = undef,
+  Boolean $extra_packages_hiera_merge       = false,
+  Boolean $manage_service                   = true,
+  Boolean $restart_service                  = false,
+  String $openibd_service_name              = $mofed::params::openibd_service_name,
+  String $openibd_service_ensure            = &#39;running&#39;,
+  Boolean $openibd_service_enable           = true,
+  Boolean $openibd_service_hasstatus        = $mofed::params::openibd_service_hasstatus,
+  Boolean $openibd_service_hasrestart       = $mofed::params::openibd_service_hasrestart,
+  Boolean $manage_config                    = true,
+  Stdlib::Absolutepath $openib_config_path  = $mofed::params::openib_config_path,
+  Hash $openib_shellvars                    = {},
+  Hash $interfaces                          = {}
+) inherits mofed::params {
+
+  if $restart_service {
+    $openib_shellvar_notify = Service[&#39;openibd&#39;]
+  } else {
+    $openib_shellvar_notify = undef
+  }
+
+  include mofed::repo
+  include mofed::install
+  include mofed::config
+  include mofed::service
+
+  anchor { &#39;mofed::start&#39;: }
+  -&gt; Class[&#39;mofed::repo&#39;]
+  -&gt; Class[&#39;mofed::install&#39;]
+  -&gt; Class[&#39;mofed::config&#39;]
+  -&gt; Class[&#39;mofed::service&#39;]
+  -&gt; anchor { &#39;mofed::end&#39;: }
+
+  create_resources(&#39;mofed::interface&#39;, $interfaces)
+
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>

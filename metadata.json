@@ -23,12 +23,12 @@
     }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.13.1 <5.0.0" },
-    { "name": "herculesteam/augeasproviders_shellvar", "version_requirement": ">= 2.0.0 <3.0.0" },
-    { "name": "camptocamp/systemd", "version_requirement": ">= 0.3.0 <2.0.0" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.13.1 <6.0.0" },
+    { "name": "herculesteam/augeasproviders_shellvar", "version_requirement": ">= 2.0.0 <4.0.0" },
+    { "name": "camptocamp/systemd", "version_requirement": ">= 0.3.0 <3.0.0" },
     { "name": "saz/rsyslog", "version_requirement": ">= 3.5.0 <6.0.0" }
   ],
   "requirements": [
-    {"name": "puppet", "version_requirement": ">= 4.7.0 < 6.0.0" }
+    {"name": "puppet", "version_requirement": ">= 5.0.0 < 7.0.0" }
   ]
 }

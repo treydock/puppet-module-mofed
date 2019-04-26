@@ -82,44 +82,11 @@ Returns the Mellanox OFED version that is installed
 
 #### infiniband\_hcas
 
-Return array of HCAs on the system.
-
-Example:
-
-```shell
-# facter -p infiniband_hcas
-[
-  "mlx5_0",
-  "mlx5_1",
-  "mlx5_2",
-  "mlx5_3"
-]
-```
+Moved to [treydock/infiniband](https://forge.puppetlabs.com/treydock/infiniband) module
 
 #### infiniband\_hca\_port\_guids
 
-Return hash of HCA port GUIDs.
-
-Example:
-
-```shell
-# facter -p infiniband_hca_port_guids
-{
-  mlx5_0 => {
-    1 => "0x506b4b0300cc4348"
-  },
-  mlx5_1 => {
-    1 => "0x506b4b0300cc4349"
-  },
-  mlx5_2 => {
-    1 => "0x506b4b0300cc4342"
-  },
-  mlx5_3 => {
-    1 => "0x506b4b0300cc4343"
-  }
-}
-
-```
+Moved to [treydock/infiniband](https://forge.puppetlabs.com/treydock/infiniband) module
 
 ## Limitations
 

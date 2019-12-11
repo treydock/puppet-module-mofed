@@ -15,7 +15,6 @@ _Private Classes_
 
 * `mofed::config`: 
 * `mofed::install`: 
-* `mofed::params`: 
 * `mofed::repo`: 
 * `mofed::service`: 
 
@@ -90,7 +89,7 @@ Data type: `String`
 
 The MOFED package name to install
 
-Default value: $mofed::params::package_name
+Default value: 'mlnx-ofed-basic'
 
 ##### `extra_packages`
 
@@ -130,7 +129,7 @@ Data type: `String`
 
 Name of the openibd service
 
-Default value: $mofed::params::openibd_service_name
+Default value: 'openibd'
 
 ##### `openibd_service_ensure`
 
@@ -154,7 +153,7 @@ Data type: `Boolean`
 
 openibd service hasstatus property
 
-Default value: $mofed::params::openibd_service_hasstatus
+Default value: `true`
 
 ##### `openibd_service_hasrestart`
 
@@ -162,7 +161,7 @@ Data type: `Boolean`
 
 openibd service hasrestart property
 
-Default value: $mofed::params::openibd_service_hasrestart
+Default value: `true`
 
 ##### `manage_config`
 
@@ -178,7 +177,7 @@ Data type: `Stdlib::Absolutepath`
 
 Path to openib.conf
 
-Default value: $mofed::params::openib_config_path
+Default value: '/etc/infiniband/openib.conf'
 
 ##### `openib_shellvars`
 
@@ -317,23 +316,23 @@ The following parameters are available in the `mofed::interface` defined type.
 
 ##### `ipaddr`
 
-Data type: `Any`
+Data type: `Stdlib::Compat::Ip_address`
 
 Required IP address.
 
 ##### `netmask`
 
-Data type: `Any`
+Data type: `Stdlib::Compat::Ip_address`
 
 Required netmask address.
 
 ##### `gateway`
 
-Data type: `Any`
+Data type: `Optional[Stdlib::Compat::Ip_address]`
 
-Gateway address, `UNSET` will leave the value undefined.
+Gateway address.
 
-Default value: 'UNSET'
+Default value: `undef`
 
 ##### `ensure`
 
@@ -345,7 +344,7 @@ Default value: 'present'
 
 ##### `enable`
 
-Data type: `Variant[Boolean, Enum['yes', 'no']]`
+Data type: `Boolean`
 
 Boolean of whether to enable the interface at boot.
 
@@ -361,9 +360,33 @@ Default value: 'yes'
 
 ##### `mtu`
 
-Data type: `Any`
+Data type: `Optional[Integer]`
 
-The MTU of the interface, `UNSET` will leave the value undefined.
+The MTU of the interface.
 
-Default value: 'UNSET'
+Default value: `undef`
+
+##### `bonding`
+
+Data type: `Boolean`
+
+If this interface is a bonding interface
+
+Default value: `false`
+
+##### `bonding_slaves`
+
+Data type: `Array[String]`
+
+Array of interfaces that should be enslaved in the bonding interface
+
+Default value: []
+
+##### `bonding_opts`
+
+Data type: `String`
+
+The bonding options to use for this bonding interface
+
+Default value: 'mode=active-backup miimon=100'
 

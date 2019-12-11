@@ -21,7 +21,7 @@ class mofed::srp (
   Array $ports = [],
   Optional[Variant[String, Array]] $srp_daemon_config = undef,
   Optional[Hash[String, Variant[String,Integer], 1]] $ib_srp_options = undef,
-) inherits mofed::params {
+) {
 
   include mofed
 

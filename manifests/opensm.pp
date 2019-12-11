@@ -18,7 +18,7 @@ class mofed::opensm (
   Enum['present', 'absent', 'disabled'] $ensure = 'present',
   Array $ports = [],
   Integer $sweep = 10,
-) inherits mofed::params {
+) {
 
   include mofed
 

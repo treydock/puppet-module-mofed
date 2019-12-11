@@ -1,3 +1,3 @@
-shared_context "mofed::config" do
+shared_context 'mofed::config' do
   # TODO
 end

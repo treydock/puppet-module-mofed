@@ -1,19 +1,15 @@
 require 'spec_helper'
 
 describe 'mofed' do
-  on_supported_os({
-    :supported_os => [
-      {
-        "operatingsystem" => "RedHat",
-        "operatingsystemrelease" => ["6", "7"],
-      }
-    ]
-  }).each do |os, facts|
+  on_supported_os(supported_os: [
+                    {
+                      'operatingsystem' => 'RedHat',
+                      'operatingsystemrelease' => ['6', '7'],
+                    },
+                  ]).each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/dne',
-        })
+        facts.merge(concat_basedir: '/dne')
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -31,7 +27,6 @@ describe 'mofed' do
       include_context 'mofed::install'
       include_context 'mofed::config'
       include_context 'mofed::service'
-
     end # end context
   end # end on_supported_os loop
 end # end describe

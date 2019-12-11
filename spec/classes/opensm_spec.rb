@@ -1,19 +1,15 @@
 require 'spec_helper'
 
 describe 'mofed::opensm' do
-  on_supported_os({
-    :supported_os => [
-      {
-        "operatingsystem" => "RedHat",
-        "operatingsystemrelease" => ["6", "7"],
-      }
-    ]
-  }).each do |os, facts|
+  on_supported_os(supported_os: [
+                    {
+                      'operatingsystem' => 'RedHat',
+                      'operatingsystemrelease' => ['6', '7'],
+                    },
+                  ]).each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/dne',
-        })
+        facts.merge(concat_basedir: '/dne')
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -23,36 +19,30 @@ describe 'mofed::opensm' do
       it { is_expected.to contain_class('mofed') }
 
       it do
-        is_expected.to contain_package('opensm').with({
-          :ensure  => 'present',
-          :require => 'Class[Mofed::Repo]'
-        })
+        is_expected.to contain_package('opensm').with(ensure: 'present',
+                                                      require: 'Class[Mofed::Repo]')
       end
 
       it do
-        is_expected.to contain_file('/etc/sysconfig/opensm').with({
-          :ensure  => 'file',
-          :owner   => 'root',
-          :group   => 'root',
-          :mode    => '0644',
-          :require => 'Package[opensm]',
-        })
+        is_expected.to contain_file('/etc/sysconfig/opensm').with(ensure: 'file',
+                                                                  owner: 'root',
+                                                                  group: 'root',
+                                                                  mode: '0644',
+                                                                  require: 'Package[opensm]')
       end
 
       it do
         verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
-          'SWEEP=10'
-        ])
+                                'SWEEP=10',
+                              ])
       end
 
       it do
-        is_expected.to contain_service('opensmd').with({
-          :ensure     => 'running',
-          :enable     => 'true',
-          :hasstatus  => 'true',
-          :hasrestart => 'true',
-          :subscribe  => 'File[/etc/sysconfig/opensm]'
-        })
+        is_expected.to contain_service('opensmd').with(ensure: 'running',
+                                                       enable: 'true',
+                                                       hasstatus: 'true',
+                                                       hasrestart: 'true',
+                                                       subscribe: 'File[/etc/sysconfig/opensm]')
       end
 
       it do
@@ -60,28 +50,28 @@ describe 'mofed::opensm' do
       end
 
       context 'when ports defined' do
-        let(:params) {{
-          :ports => ['mlx5_0 1', 'mlx5_0 2']
-        }}
+        let(:params) do
+          {
+            ports: ['mlx5_0 1', 'mlx5_0 2'],
+          }
+        end
 
         it { is_expected.to compile.with_all_deps }
 
         it do
           verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
-            'SWEEP=10',
-            'PORT_1=mlx5_0 1',
-            'PORT_2=mlx5_0 2'
-          ])
+                                  'SWEEP=10',
+                                  'PORT_1=mlx5_0 1',
+                                  'PORT_2=mlx5_0 2',
+                                ])
         end
 
         it do
-          is_expected.to contain_service('opensmd').with({
-            :ensure     => 'stopped',
-            :enable     => 'false',
-            :hasstatus  => 'true',
-            :hasrestart => 'true',
-            :require    => 'Package[opensm]',
-          })
+          is_expected.to contain_service('opensmd').with(ensure: 'stopped',
+                                                         enable: 'false',
+                                                         hasstatus: 'true',
+                                                         hasrestart: 'true',
+                                                         require: 'Package[opensm]')
         end
 
         if facts[:operatingsystemrelease].to_i >= 7.0
@@ -90,31 +80,27 @@ describe 'mofed::opensm' do
           end
 
           it do
-            is_expected.to contain_service('opensmd@1').with({
-              :ensure     => 'running',
-              :enable     => 'true',
-              :hasstatus  => 'true',
-              :hasrestart => 'true',
-              :require    => 'Exec[systemctl-daemon-reload]',
-              :subscribe  => ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]']
-            })
+            is_expected.to contain_service('opensmd@1').with(ensure: 'running',
+                                                             enable: 'true',
+                                                             hasstatus: 'true',
+                                                             hasrestart: 'true',
+                                                             require: 'Exec[systemctl-daemon-reload]',
+                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'])
           end
 
           it do
-            is_expected.to contain_service('opensmd@2').with({
-              :ensure     => 'running',
-              :enable     => 'true',
-              :hasstatus  => 'true',
-              :hasrestart => 'true',
-              :require    => 'Exec[systemctl-daemon-reload]',
-              :subscribe  => ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]']
-            })
+            is_expected.to contain_service('opensmd@2').with(ensure: 'running',
+                                                             enable: 'true',
+                                                             hasstatus: 'true',
+                                                             hasrestart: 'true',
+                                                             require: 'Exec[systemctl-daemon-reload]',
+                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'])
           end
         end
       end
 
       context 'when ensure=disabled' do
-        let(:params) {{ :ensure => 'disabled' }}
+        let(:params) { { ensure: 'disabled' } }
 
         it { is_expected.to compile.with_all_deps }
 
@@ -122,10 +108,12 @@ describe 'mofed::opensm' do
         it { is_expected.to contain_service('opensmd').with_enable('false') }
 
         context 'when ports defined' do
-          let(:params) {{
-            :ensure => 'disabled',
-            :ports => ['mlx5_0 1', 'mlx5_0 2']
-          }}
+          let(:params) do
+            {
+              ensure: 'disabled',
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
+            }
+          end
 
           it { is_expected.to compile.with_all_deps }
 
@@ -142,7 +130,7 @@ describe 'mofed::opensm' do
       end
 
       context 'when ensure=absent' do
-        let(:params) {{ :ensure => 'absent' }}
+        let(:params) { { ensure: 'absent' } }
 
         it { is_expected.to compile.with_all_deps }
 
@@ -152,10 +140,12 @@ describe 'mofed::opensm' do
         it { is_expected.to contain_service('opensmd').with_enable('false') }
 
         context 'when ports defined' do
-          let(:params) {{
-            :ensure => 'absent',
-            :ports => ['mlx5_0 1', 'mlx5_0 2']
-          }}
+          let(:params) do
+            {
+              ensure: 'absent',
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
+            }
+          end
 
           it { is_expected.to compile.with_all_deps }
 
@@ -168,7 +158,6 @@ describe 'mofed::opensm' do
           end
         end
       end
-
     end # end context
   end # end on_supported_os loop
 end # end describe

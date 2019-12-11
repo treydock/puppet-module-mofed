@@ -15,7 +15,6 @@ describe 'mofed::srp' do
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to create_class('mofed::srp') }
-      it { is_expected.to contain_class('mofed::params') }
       it { is_expected.to contain_class('mofed') }
 
       it do

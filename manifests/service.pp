@@ -1,8 +1,6 @@
 # @api private
 class mofed::service {
-  if $caller_module_name != $module_name {
-    fail("Use of private class ${name} by ${caller_module_name}")
-  }
+  assert_private()
 
   if is_string($mofed::openibd_service_enable) {
     if $mofed::openibd_service_enable in ['UNSET', 'undef'] {

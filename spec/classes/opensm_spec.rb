@@ -15,7 +15,6 @@ describe 'mofed::opensm' do
       it { is_expected.to compile.with_all_deps }
 
       it { is_expected.to create_class('mofed::opensm') }
-      it { is_expected.to contain_class('mofed::params') }
       it { is_expected.to contain_class('mofed') }
 
       it do

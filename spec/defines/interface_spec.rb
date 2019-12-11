@@ -31,8 +31,7 @@ describe 'mofed::interface' do
         is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with('ensure' => 'present',
                                                                                      'owner'   => 'root',
                                                                                      'group'   => 'root',
-                                                                                     'mode'    => '0644',
-                                                                                     'notify'  => nil)
+                                                                                     'mode'    => '0644')
       end
 
       it do
@@ -48,9 +47,9 @@ describe 'mofed::interface' do
         it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_ensure('absent') }
       end
 
-      context 'enable => no' do
+      context 'enable => false' do
         let :params do
-          default_params.merge(enable: 'no')
+          default_params.merge(enable: false)
         end
 
         it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_with_onboot_no')) }
@@ -66,7 +65,7 @@ describe 'mofed::interface' do
 
       context 'mtu => 65520' do
         let :params do
-          default_params.merge(mtu: '65520')
+          default_params.merge(mtu: 65_520)
         end
 
         it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0'). with_content(my_fixture_read('ifcfg-ib0_with_mtu')) }
@@ -80,12 +79,28 @@ describe 'mofed::interface' do
         it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_with_gateway')) }
       end
 
-      context 'restart_service => true' do
-        let(:pre_condition) do
-          "class { 'mofed': restart_service => true }"
+      context 'bonding => true' do
+        let :title do
+          'ibbond0'
         end
 
-        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_notify('Service[openibd]') }
+        let :params do
+          default_params.merge(bonding: true, bonding_slaves: ['ib0', 'ib1'], mtu: 65_520)
+        end
+
+        it {
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-bond-slave-ib0'))
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib1').with_content(my_fixture_read('ifcfg-bond-slave-ib1'))
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ibbond0').with_content(my_fixture_read('ifcfg-bond-master-ibbond0'))
+        }
+      end
+
+      context 'bonding => true, no slave interfaces' do
+        let :params do
+          default_params.merge(bonding: true)
+        end
+
+        it { is_expected.to compile.and_raise_error(%r{No slave interfaces given for bonding interface}) }
       end
     end
   end

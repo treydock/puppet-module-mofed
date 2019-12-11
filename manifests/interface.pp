@@ -13,7 +13,7 @@
 # @param netmask
 #   Required netmask address.
 # @param gateway
-#   Gateway address, `UNSET` will leave the value undefined.
+#   Gateway address.
 # @param ensure
 #   Interface ensure value.
 # @param enable
@@ -21,16 +21,25 @@
 # @param connected_mode
 #   The value for setting interface to connected mode.
 # @param mtu
-#   The MTU of the interface, `UNSET` will leave the value undefined.
+#   The MTU of the interface.
+# @param bonding
+#   If this interface is a bonding interface
+# @param bonding_slaves
+#   Array of interfaces that should be enslaved in the bonding interface
+# @param bonding_opts
+#   The bonding options to use for this bonding interface
 #
 define mofed::interface(
-  $ipaddr,
-  $netmask,
-  $gateway                                    = 'UNSET',
+  Stdlib::Compat::Ip_address $ipaddr,
+  Stdlib::Compat::Ip_address $netmask,
+  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Enum['present', 'absent'] $ensure           = 'present',
-  Variant[Boolean, Enum['yes', 'no']] $enable = true,
+  Boolean $enable = true,
   Enum['yes', 'no'] $connected_mode           = 'yes',
-  $mtu                                        = 'UNSET'
+  Optional[Integer] $mtu = undef,
+  Boolean $bonding = false,
+  Array[String] $bonding_slaves = [],
+  String $bonding_opts = 'mode=active-backup miimon=100',
 ) {
 
   include mofed
@@ -41,19 +50,57 @@ define mofed::interface(
     default => $enable,
   }
 
-  if $mofed::restart_service {
-    $_notify = Service['openibd']
-  } else {
-    $_notify = undef
+  $options_extra_redhat = {
+    'CONNECTED_MODE' => $connected_mode,
   }
 
-  file { "/etc/sysconfig/network-scripts/ifcfg-${name}":
-    ensure  => $ensure,
-    content => template('mofed/ifcfg.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    notify  => $_notify,
+  if $bonding {
+    if empty($bonding_slaves) {
+      fail("No slave interfaces given for bonding interface ${name}")
+    }
+
+    # Setup interfaces for the slaves
+    $bonding_slaves.each |String $ifname| {
+      network::interface { $ifname:
+        ensure               => $ensure,
+        enable               => $enable,
+        onboot               => $onboot,
+        type                 => 'InfiniBand',
+        master               => $name,
+        slave                => 'yes',
+        nm_controlled        => 'no',
+        mtu                  => $mtu,
+        options_extra_redhat => $options_extra_redhat,
+      }
+    }
+
+    # Setup the bonding interface
+    network::interface { $name:
+      ensure         => $ensure,
+      enable         => $enable,
+      onboot         => $onboot,
+      type           => 'Bond',
+      ipaddress      => $ipaddr,
+      netmask        => $netmask,
+      gateway        => $gateway,
+      bonding_master => 'yes',
+      bonding_opts   => $bonding_opts,
+      nm_controlled  => 'no',
+      mtu            => $mtu,
+    }
+  } else {
+    network::interface { $name:
+      ensure               => $ensure,
+      enable               => $enable,
+      onboot               => $onboot,
+      type                 => 'InfiniBand',
+      ipaddress            => $ipaddr,
+      netmask              => $netmask,
+      gateway              => $gateway,
+      nm_controlled        => 'no',
+      mtu                  => $mtu,
+      options_extra_redhat => $options_extra_redhat,
+    }
   }
 
 }

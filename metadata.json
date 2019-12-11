@@ -23,6 +23,10 @@
     {
       "name": "saz/rsyslog",
       "version_requirement": ">= 3.5.0 <6.0.0"
+    },
+    {
+      "name": "example42/network",
+      "version_requirement": ">= 3.0.0 <4.0.0"
     }
   ],
   "operatingsystem_support": [

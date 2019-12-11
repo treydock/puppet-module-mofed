@@ -14,5 +14,7 @@ fixtures:
       repo: https://github.com/camptocamp/puppet-systemd.git
     rsyslog:
       repo: https://github.com/saz/puppet-rsyslog.git
+    network:
+      repo: https://github.com/example42/puppet-network.git
   symlinks:
     mofed: "#{source_dir}"

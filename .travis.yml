@@ -1,14 +1,54 @@
 ---
+dist: xenial
 language: ruby
+cache: bundler
+before_install:
+  - bundle -v
+  - rm -f Gemfile.lock
+  - gem update --system $RUBYGEMS_VERSION
+  - gem --version
+  - bundle -v
+script:
+  - 'bundle exec rake $CHECK'
 bundler_args: --without system_tests
-before_install: rm Gemfile.lock || true
-script: bundle exec rake release_checks
+rvm:
+  - 2.5.3
+stages:
+  - static
+  - spec
+  - acceptance
+  -
+    if: tag =~ ^v\d
+    name: deploy
 matrix:
   fast_finish: true
   include:
-    - rvm: 2.4.4
-      env: PUPPET_GEM_VERSION="~> 5.0" STRICT_VARIABLES="yes"
-    - rvm: 2.5.1
-      env: PUPPET_GEM_VERSION="~> 6.0" STRICT_VARIABLES="yes"
+    -
+      env: CHECK="check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop syntax lint metadata_lint"
+      stage: static
+    -
+      env: PUPPET_GEM_VERSION="~> 5.0" CHECK=parallel_spec
+      rvm: 2.4.5
+      stage: spec
+    -
+      env: PUPPET_GEM_VERSION="~> 6.0" CHECK=parallel_spec
+      rvm: 2.5.3
+      stage: spec
+    -
+      env: DEPLOY_TO_FORGE=yes
+      stage: deploy
+branches:
+  only:
+    - master
+    - /^v\d/
 notifications:
-  email: false
+  email: treydock@gmail.com
+deploy:
+  provider: puppetforge
+  user: treydock
+  password:
+    secure: "MbQg0XLyQqVTtHXoW6gbwfYRicn41aSGF9WiZufahxgbuQKkesJejZyMm5Jb5DO94aYqsD/Wm5DswNr9VLsKZz4qW/bDAcyUhr6vUl95anGdFjFLh7uDylYe15v0lvfExSrMPoX5NfYVZGntjW9K0rXkkf+6/lN1SJvMX45zCKrAnKWkJZCmPcW5eMdVQnuIDVzKV4PqKHj2FCo8+APkJ2xkoVC3Nn2OFoJLQi+GuYiquYnNDCO121NSOz5Dn1ATaZ5wpgP2gTRGUEjlVBCrBvkOa54ZYxK04FiQCM72I2mXCQE4EXJkoXi5pkqR/F0yH+KQbny/7Ctq9ERr1+biogqiYY0yTbk9ySKlK+P51HTjxOjTUH545ywlIFw+EEYld2FOBfuMhAQSHl+gThEToJAABrOfKo5ag6SOOQeKdA0dWshOYtGRnivQvKM+C1FfVWmsEQhEh/7bw737kPFqpumasSrgLBRcTwcZVsIJ9/ulQuWLqdgcS2C92qjwJpqGVrzy+5u7kYSn2H9Jg/brwabZ/AiHN5I1qwWOUGXYl8MzOW/WlR5G6b3zESQ6ah2n6iPZNeywPictvky4J1/UZRZFdpCAy4jf2yS32xiI1jccEgfj1yM9A9MFsxVY0kGv005SrYWOVIVzbJiX25Q9+PfBUok2Emf9uinmff4o6hQ="
+  on:
+    tags: true
+    all_branches: true
+    condition: "$DEPLOY_TO_FORGE = yes"

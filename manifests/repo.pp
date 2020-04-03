@@ -11,6 +11,7 @@ class mofed::repo {
           enabled  => '1',
           gpgkey   => $mofed::repo_gpgkey,
           gpgcheck => '1',
+          exclude  => $mofed::repo_exclude,
         }
       }
       default: {

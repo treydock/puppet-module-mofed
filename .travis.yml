@@ -13,6 +13,9 @@ script:
 bundler_args: --without system_tests
 rvm:
   - 2.5.3
+env:
+  global:
+    - FACTER_GEM_VERSION="< 4.0"
 stages:
   - static
   - spec

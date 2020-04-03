@@ -12,6 +12,8 @@
 #   The baseurl of the yumrepo resource
 # @param repo_gpgkey
 #   The gpgkey of the yumrepo resource
+# @param repo_exclude
+#   The exclude of the yumrepo resource
 # @param manage_packages
 #   Boolean to determine if packages should be managed
 # @param package_ensure
@@ -49,6 +51,7 @@ class mofed (
   Boolean $manage_repo                      = true,
   Optional[String] $repo_baseurl            = undef,
   Optional[String] $repo_gpgkey             = undef,
+  Optional[String] $repo_exclude            = undef,
   Boolean $manage_packages                  = true,
   String $package_ensure                    = 'present',
   String $package_name                      = 'mlnx-ofed-basic',

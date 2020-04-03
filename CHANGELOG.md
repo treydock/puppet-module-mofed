@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.1.0](https://github.com/treydock/puppet-module-mofed/tree/v2.1.0) (2020-04-03)
+
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/v2.0.0...v2.1.0)
+
+### Added
+
+- Allow repo exclude to be set [\#15](https://github.com/treydock/puppet-module-mofed/pull/15) ([treydock](https://github.com/treydock))
+
 ## [v2.0.0](https://github.com/treydock/puppet-module-mofed/tree/v2.0.0) (2019-12-11)
 
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/1.5.0...v2.0.0)

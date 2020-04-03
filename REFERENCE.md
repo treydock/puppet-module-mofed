@@ -67,6 +67,14 @@ The gpgkey of the yumrepo resource
 
 Default value: `undef`
 
+##### `repo_exclude`
+
+Data type: `Optional[String]`
+
+The exclude of the yumrepo resource
+
+Default value: `undef`
+
 ##### `manage_packages`
 
 Data type: `Boolean`

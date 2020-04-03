@@ -6,7 +6,7 @@
 <title>
   Class: Facter::Util::MellanoxInfiniband
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -99,7 +99,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Class for Mellanox Infiniband fact functions</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
   
     <h2>
       Constant Summary
@@ -123,7 +134,7 @@ href="http://cateee.net/lkddb/web-lkddb/INFINIBAND.html">cateee.net/lkddb/web-lk
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s15b3:</span><span class='regexp_end'>/</span></span></pre></dd>
+        <dd><pre class="code"><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>\s15b3:</span><span class='regexp_end'>}</span></span></pre></dd>
       
     </dl>
   
@@ -169,7 +180,7 @@ href="http://cateee.net/lkddb/web-lkddb/INFINIBAND.html">cateee.net/lkddb/web-lk
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#lspci-class_method" title="lspci (class method)">.<strong>lspci</strong>(command = &quot;lspci -n 2&gt;/dev/null&quot;)  &#x21d2; Object </a>
+      <a href="#lspci-class_method" title="lspci (class method)">.<strong>lspci</strong>(command = &#39;lspci -n 2&gt;/dev/null&#39;)  &#x21d2; Object </a>
     
 
     
@@ -243,7 +254,6 @@ system call without affecting other calls to Facter::Core::Execution.exec.</p>
       <pre class="lines">
 
 
-20
 21
 22
 23
@@ -251,17 +261,18 @@ system call without affecting other calls to Facter::Core::Execution.exec.</p>
 25
 26
 27
-28</pre>
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/facter/util/mellanox_infiniband.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/facter/util/mellanox_infiniband.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count_ib_devices'>count_ib_devices</span>
   <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='int'>0</span>
   <span class='kw'>if</span> <span class='const'>Facter</span><span class='op'>::</span><span class='const'>Util</span><span class='op'>::</span><span class='const'>Resolution</span><span class='period'>.</span><span class='id identifier rubyid_which'>which</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lspci</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_lspci'>lspci</span>
+    <span class='id identifier rubyid_output'>output</span> <span class='op'>=</span> <span class='id identifier rubyid_lspci'>lspci</span>
     <span class='id identifier rubyid_matches'>matches</span> <span class='op'>=</span> <span class='id identifier rubyid_output'>output</span><span class='period'>.</span><span class='id identifier rubyid_scan'>scan</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#LSPCI_IB_REGEX-constant" title="Facter::Util::MellanoxInfiniband::LSPCI_IB_REGEX (constant)">LSPCI_IB_REGEX</a></span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='id identifier rubyid_matches'>matches</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
+    <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='id identifier rubyid_matches'>matches</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_count'>count</span>
 <span class='kw'>end</span></pre>
@@ -273,7 +284,7 @@ system call without affecting other calls to Facter::Core::Execution.exec.</p>
       <div class="method_details ">
   <h3 class="signature " id="lspci-class_method">
   
-    .<strong>lspci</strong>(command = &quot;lspci -n 2&gt;/dev/null&quot;)  &#x21d2; <tt>Object</tt> 
+    .<strong>lspci</strong>(command = &#39;lspci -n 2&gt;/dev/null&#39;)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -297,21 +308,21 @@ system call without affecting other calls to Facter::Core::Execution.exec</p>
       <pre class="lines">
 
 
-7
 8
 9
 10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/facter/util/mellanox_infiniband.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/facter/util/mellanox_infiniband.rb', line 8</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_lspci'>lspci</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lspci -n 2&gt;/dev/null</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='comment'>#TODO: Deprecated in facter-2.0
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_lspci'>lspci</span><span class='lparen'>(</span><span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lspci -n 2&gt;/dev/null</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='comment'># TODO: Deprecated in facter-2.0
 </span>  <span class='const'>Facter</span><span class='op'>::</span><span class='const'>Util</span><span class='op'>::</span><span class='const'>Resolution</span><span class='period'>.</span><span class='id identifier rubyid_exec'>exec</span> <span class='id identifier rubyid_command'>command</span>
-  <span class='comment'>#TODO: Not supported in facter &lt; 2.0
-</span>  <span class='comment'>#Facter::Core::Execution.exec command
+  <span class='comment'># TODO: Not supported in facter &lt; 2.0
+</span>  <span class='comment'># Facter::Core::Execution.exec command
 </span><span class='kw'>end</span></pre>
     </td>
   </tr>

@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed::opensm
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -61,11 +61,6 @@
 
       <div id="content"><h1>Puppet Class: mofed::opensm</h1>
 <div class="box_info">
-  
-  <dl>
-    <dt>Inherits:</dt>
-    <dd><span class='object_link'><a href="mofed_3A_3Aparams.html" title="puppet_classes::mofed::params (puppet_class)">mofed::params</a></span></dd>
-  </dl>
   
   
   <dl>
@@ -271,7 +266,7 @@ class mofed::opensm (
   Enum[&#39;present&#39;, &#39;absent&#39;, &#39;disabled&#39;] $ensure = &#39;present&#39;,
   Array $ports = [],
   Integer $sweep = 10,
-) inherits mofed::params {
+) {
 
   include mofed
 

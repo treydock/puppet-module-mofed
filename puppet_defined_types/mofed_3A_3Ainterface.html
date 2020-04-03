@@ -6,7 +6,7 @@
 <title>
   Defined Type: mofed::interface
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -106,7 +106,7 @@
         <span class='name'>ipaddr</span>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>Stdlib::Compat::Ip_address</tt>)</span>
       
       
       
@@ -122,7 +122,7 @@
         <span class='name'>netmask</span>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>Stdlib::Compat::Ip_address</tt>)</span>
       
       
       
@@ -138,15 +138,15 @@
         <span class='name'>gateway</span>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>Optional[Stdlib::Compat::Ip_address]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;UNSET&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Gateway address, <code>UNSET</code> will leave the value undefined.</p>
+<p>Gateway address.</p>
 </div>
       
     </li>
@@ -174,7 +174,7 @@
         <span class='name'>enable</span>
       
       
-        <span class='type'>(<tt>Variant[Boolean, Enum['yes', 'no']]</tt>)</span>
+        <span class='type'>(<tt>Boolean</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>true</tt>)</em>
@@ -210,16 +210,69 @@
         <span class='name'>mtu</span>
       
       
-        <span class='type'>(<tt>Any</tt>)</span>
+        <span class='type'>(<tt>Optional[Integer]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>&#39;UNSET&#39;</tt>)</em>
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>The MTU of the interface, <code>UNSET</code> will leave the value
-undefined.</p>
+<p>The MTU of the interface.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bonding</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If this interface is a bonding interface</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bonding_slaves</span>
+      
+      
+        <span class='type'>(<tt>Array[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Array of interfaces that should be enslaved in the bonding interface</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>bonding_opts</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;mode=active-backup miimon=100&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The bonding options to use for this bonding interface</p>
 </div>
       
     </li>
@@ -234,12 +287,6 @@ undefined.</p>
         <pre class="lines">
 
 
-26
-27
-28
-29
-30
-31
 32
 33
 34
@@ -267,19 +314,69 @@ undefined.</p>
 56
 57
 58
-59</pre>
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/interface.pp', line 26</span>
+        <pre class="code"><span class="info file"># File 'manifests/interface.pp', line 32</span>
 
 define mofed::interface(
-  $ipaddr,
-  $netmask,
-  $gateway                                    = &#39;UNSET&#39;,
+  Stdlib::Compat::Ip_address $ipaddr,
+  Stdlib::Compat::Ip_address $netmask,
+  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure           = &#39;present&#39;,
-  Variant[Boolean, Enum[&#39;yes&#39;, &#39;no&#39;]] $enable = true,
+  Boolean $enable = true,
   Enum[&#39;yes&#39;, &#39;no&#39;] $connected_mode           = &#39;yes&#39;,
-  $mtu                                        = &#39;UNSET&#39;
+  Optional[Integer] $mtu = undef,
+  Boolean $bonding = false,
+  Array[String] $bonding_slaves = [],
+  String $bonding_opts = &#39;mode=active-backup miimon=100&#39;,
 ) {
 
   include mofed
@@ -290,19 +387,57 @@ define mofed::interface(
     default =&gt; $enable,
   }
 
-  if $mofed::restart_service {
-    $_notify = Service[&#39;openibd&#39;]
-  } else {
-    $_notify = undef
+  $options_extra_redhat = {
+    &#39;CONNECTED_MODE&#39; =&gt; $connected_mode,
   }
 
-  file { &quot;/etc/sysconfig/network-scripts/ifcfg-${name}&quot;:
-    ensure  =&gt; $ensure,
-    content =&gt; template(&#39;mofed/ifcfg.erb&#39;),
-    owner   =&gt; &#39;root&#39;,
-    group   =&gt; &#39;root&#39;,
-    mode    =&gt; &#39;0644&#39;,
-    notify  =&gt; $_notify,
+  if $bonding {
+    if empty($bonding_slaves) {
+      fail(&quot;No slave interfaces given for bonding interface ${name}&quot;)
+    }
+
+    # Setup interfaces for the slaves
+    $bonding_slaves.each |String $ifname| {
+      network::interface { $ifname:
+        ensure               =&gt; $ensure,
+        enable               =&gt; $enable,
+        onboot               =&gt; $onboot,
+        type                 =&gt; &#39;InfiniBand&#39;,
+        master               =&gt; $name,
+        slave                =&gt; &#39;yes&#39;,
+        nm_controlled        =&gt; &#39;no&#39;,
+        mtu                  =&gt; $mtu,
+        options_extra_redhat =&gt; $options_extra_redhat,
+      }
+    }
+
+    # Setup the bonding interface
+    network::interface { $name:
+      ensure         =&gt; $ensure,
+      enable         =&gt; $enable,
+      onboot         =&gt; $onboot,
+      type           =&gt; &#39;Bond&#39;,
+      ipaddress      =&gt; $ipaddr,
+      netmask        =&gt; $netmask,
+      gateway        =&gt; $gateway,
+      bonding_master =&gt; &#39;yes&#39;,
+      bonding_opts   =&gt; $bonding_opts,
+      nm_controlled  =&gt; &#39;no&#39;,
+      mtu            =&gt; $mtu,
+    }
+  } else {
+    network::interface { $name:
+      ensure               =&gt; $ensure,
+      enable               =&gt; $enable,
+      onboot               =&gt; $onboot,
+      type                 =&gt; &#39;InfiniBand&#39;,
+      ipaddress            =&gt; $ipaddr,
+      netmask              =&gt; $netmask,
+      gateway              =&gt; $gateway,
+      nm_controlled        =&gt; &#39;no&#39;,
+      mtu                  =&gt; $mtu,
+      options_extra_redhat =&gt; $options_extra_redhat,
+    }
   }
 
 }</pre>

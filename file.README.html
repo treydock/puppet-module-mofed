@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -100,7 +100,8 @@ module</a></p>
 <pre class="code ruby"><code class="ruby">class { &#39;mofed&#39;:
   repo_baseurl =&gt; &#39;http://example.com/mlnx/$releasever/3.4-2.0.0.0-rhel7.3/&#39;
   repo_gpgkey  =&gt; &#39;http://example.com/mlnx/$releasever/3.4-2.0.0.0-rhel7.3/RPM-GPG-KEY-Mellanox&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <h3 id="label-mofed-3A-3Ainterface">mofed::interface</h3>
 
@@ -111,7 +112,8 @@ module</a></p>
   ipaddr         =&gt; &#39;10.0.0.1&#39;,
   netmask        =&gt; &#39;255.255.0.0&#39;,
   connected_mode =&gt; &#39;no&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <p>The same interface can be defined in Hiera if the mofed class is included</p>
 
@@ -120,7 +122,8 @@ module</a></p>
     ensure: &#39;present&#39;
     ipaddr: &#39;10.0.0.1&#39;
     netmask: &#39;255.255.0.0&#39;
-    connected_mode: &#39;no&#39;</code></pre>
+    connected_mode: &#39;no&#39;
+</code></pre>
 
 <h3 id="label-mofed-3A-3Aopensm">mofed::opensm</h3>
 
@@ -128,7 +131,8 @@ module</a></p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;mofed::opensm&#39;:
   ports =&gt; [&#39;mlx4_1 1&#39;, &#39;mlx4_1 2&#39;],
-}</code></pre>
+}
+</code></pre>
 
 <h3 id="label-mofed-3A-3Asrp">mofed::srp</h3>
 
@@ -136,7 +140,8 @@ module</a></p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;mofed::srp&#39;:
   ports =&gt; [&#39;mlx4_1 1&#39;, &#39;mlx4_1 2&#39;],
-}</code></pre>
+}
+</code></pre>
 
 <h2 id="label-Reference">Reference</h2>
 

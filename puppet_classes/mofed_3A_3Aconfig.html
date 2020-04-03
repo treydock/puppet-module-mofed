@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed::config
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -102,17 +102,13 @@
 12
 13
 14
-15
-16
-17</pre>
+15</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/config.pp', line 2</span>
 
 class mofed::config {
-  if $caller_module_name != $module_name {
-    fail(&quot;Use of private class ${name} by ${caller_module_name}&quot;)
-  }
+  assert_private()
 
   if $mofed::manage_config {
     $_shellvar_defaults = {

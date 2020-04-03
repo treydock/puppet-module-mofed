@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.20
   
 </title>
 
@@ -61,11 +61,6 @@
 
       <div id="content"><h1>Puppet Class: mofed</h1>
 <div class="box_info">
-  
-  <dl>
-    <dt>Inherits:</dt>
-    <dd><span class='object_link'><a href="mofed_3A_3Aparams.html" title="puppet_classes::mofed::params (puppet_class)">mofed::params</a></span></dd>
-  </dl>
   
   
   <dl>
@@ -162,6 +157,24 @@
   
     <li>
       
+        <span class='name'>repo_exclude</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The exclude of the yumrepo resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>manage_packages</span>
       
       
@@ -204,7 +217,7 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$mofed::params::package_name</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;mlnx-ofed-basic&#39;</tt>)</em>
       
       
         &mdash;
@@ -294,7 +307,7 @@
         <span class='type'>(<tt>String</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_name</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;openibd&#39;</tt>)</em>
       
       
         &mdash;
@@ -348,7 +361,7 @@
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_hasstatus</tt>)</em>
+        <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
@@ -366,7 +379,7 @@
         <span class='type'>(<tt>Boolean</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$mofed::params::openibd_service_hasrestart</tt>)</em>
+        <em class="default">(defaults to: <tt>true</tt>)</em>
       
       
         &mdash;
@@ -402,7 +415,7 @@
         <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>$mofed::params::openib_config_path</tt>)</em>
+        <em class="default">(defaults to: <tt>&#39;/etc/infiniband/openib.conf&#39;</tt>)</em>
       
       
         &mdash;
@@ -458,8 +471,6 @@
         <pre class="lines">
 
 
-48
-49
 50
 51
 52
@@ -500,32 +511,50 @@
 87
 88
 89
-90</pre>
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 48</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 50</span>
 
 class mofed (
   Boolean $manage_repo                      = true,
   Optional[String] $repo_baseurl            = undef,
   Optional[String] $repo_gpgkey             = undef,
+  Optional[String] $repo_exclude            = undef,
   Boolean $manage_packages                  = true,
   String $package_ensure                    = &#39;present&#39;,
-  String $package_name                      = $mofed::params::package_name,
+  String $package_name                      = &#39;mlnx-ofed-basic&#39;,
   Optional[Array] $extra_packages           = undef,
   Boolean $extra_packages_hiera_merge       = false,
   Boolean $manage_service                   = true,
   Boolean $restart_service                  = false,
-  String $openibd_service_name              = $mofed::params::openibd_service_name,
+  String $openibd_service_name              = &#39;openibd&#39;,
   String $openibd_service_ensure            = &#39;running&#39;,
   Boolean $openibd_service_enable           = true,
-  Boolean $openibd_service_hasstatus        = $mofed::params::openibd_service_hasstatus,
-  Boolean $openibd_service_hasrestart       = $mofed::params::openibd_service_hasrestart,
+  Boolean $openibd_service_hasstatus        = true,
+  Boolean $openibd_service_hasrestart       = true,
   Boolean $manage_config                    = true,
-  Stdlib::Absolutepath $openib_config_path  = $mofed::params::openib_config_path,
+  Stdlib::Absolutepath $openib_config_path  = &#39;/etc/infiniband/openib.conf&#39;,
   Hash $openib_shellvars                    = {},
   Hash $interfaces                          = {}
-) inherits mofed::params {
+) {
+
+  $osfamily = $facts.dig(&#39;os&#39;, &#39;family&#39;)
+  $osmajor = $facts.dig(&#39;os&#39;, &#39;release&#39;, &#39;major&#39;)
+  $supported = [&#39;RedHat-6&#39;,&#39;RedHat-7&#39;,&#39;RedHat-8&#39;]
+  $os = &quot;${osfamily}-${osmajor}&quot;
+  if ! ($os in $supported) {
+    fail(&quot;Unsupported OS: ${osfamily}, module ${module_name} only supports RedHat 6, 7, and 8&quot;)
+  }
 
   if $restart_service {
     $openib_shellvar_notify = Service[&#39;openibd&#39;]
@@ -533,17 +562,15 @@ class mofed (
     $openib_shellvar_notify = undef
   }
 
-  include mofed::repo
-  include mofed::install
-  include mofed::config
-  include mofed::service
+  contain mofed::repo
+  contain mofed::install
+  contain mofed::config
+  contain mofed::service
 
-  anchor { &#39;mofed::start&#39;: }
-  -&gt; Class[&#39;mofed::repo&#39;]
+  Class[&#39;mofed::repo&#39;]
   -&gt; Class[&#39;mofed::install&#39;]
   -&gt; Class[&#39;mofed::config&#39;]
   -&gt; Class[&#39;mofed::service&#39;]
-  -&gt; anchor { &#39;mofed::end&#39;: }
 
   create_resources(&#39;mofed::interface&#39;, $interfaces)
 

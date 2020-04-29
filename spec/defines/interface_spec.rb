@@ -35,9 +35,7 @@ describe 'mofed::interface' do
       end
 
       context 'ensure => absent' do
-        let :params do
-          default_params.merge(ensure: 'absent')
-        end
+        let(:params) { { ensure: 'absent' } }
 
         it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_ensure('absent') }
       end

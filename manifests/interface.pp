@@ -9,9 +9,9 @@
 #   }
 #
 # @param ipaddr
-#   Required IP address.
+#   IP address, required when ensure=present
 # @param netmask
-#   Required netmask address.
+#   Netmask address, required when ensure=present
 # @param gateway
 #   Gateway address.
 # @param ensure
@@ -30,10 +30,10 @@
 #   The bonding options to use for this bonding interface
 #
 define mofed::interface(
-  Stdlib::Compat::Ip_address $ipaddr,
-  Stdlib::Compat::Ip_address $netmask,
-  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Enum['present', 'absent'] $ensure           = 'present',
+  Optional[Stdlib::Compat::Ip_address] $ipaddr = undef,
+  Optional[Stdlib::Compat::Ip_address] $netmask = undef ,
+  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Boolean $enable = true,
   Enum['yes', 'no'] $connected_mode           = 'yes',
   Optional[Integer] $mtu = undef,
@@ -41,6 +41,15 @@ define mofed::interface(
   Array[String] $bonding_slaves = [],
   String $bonding_opts = 'mode=active-backup miimon=100',
 ) {
+
+  if $ensure == 'present' {
+    if ! $ipaddr {
+      fail('ipaddr is required with ensure=present')
+    }
+    if ! $netmask {
+      fail('netmask is required with ensure=present')
+    }
+  }
 
   include mofed
 

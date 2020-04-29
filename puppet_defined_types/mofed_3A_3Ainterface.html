@@ -106,13 +106,15 @@
         <span class='name'>ipaddr</span>
       
       
-        <span class='type'>(<tt>Stdlib::Compat::Ip_address</tt>)</span>
+        <span class='type'>(<tt>Optional[Stdlib::Compat::Ip_address]</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Required IP address.</p>
+<p>IP address, required when ensure=present</p>
 </div>
       
     </li>
@@ -122,13 +124,15 @@
         <span class='name'>netmask</span>
       
       
-        <span class='type'>(<tt>Stdlib::Compat::Ip_address</tt>)</span>
+        <span class='type'>(<tt>Optional[Stdlib::Compat::Ip_address]</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>Required netmask address.</p>
+<p>Netmask address, required when ensure=present</p>
 </div>
       
     </li>
@@ -361,16 +365,25 @@
 103
 104
 105
-106</pre>
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/interface.pp', line 32</span>
 
 define mofed::interface(
-  Stdlib::Compat::Ip_address $ipaddr,
-  Stdlib::Compat::Ip_address $netmask,
-  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure           = &#39;present&#39;,
+  Optional[Stdlib::Compat::Ip_address] $ipaddr = undef,
+  Optional[Stdlib::Compat::Ip_address] $netmask = undef ,
+  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Boolean $enable = true,
   Enum[&#39;yes&#39;, &#39;no&#39;] $connected_mode           = &#39;yes&#39;,
   Optional[Integer] $mtu = undef,
@@ -378,6 +391,15 @@ define mofed::interface(
   Array[String] $bonding_slaves = [],
   String $bonding_opts = &#39;mode=active-backup miimon=100&#39;,
 ) {
+
+  if $ensure == &#39;present&#39; {
+    if ! $ipaddr {
+      fail(&#39;ipaddr is required with ensure=present&#39;)
+    }
+    if ! $netmask {
+      fail(&#39;netmask is required with ensure=present&#39;)
+    }
+  }
 
   include mofed
 

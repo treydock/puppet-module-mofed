@@ -324,15 +324,19 @@ The following parameters are available in the `mofed::interface` defined type.
 
 ##### `ipaddr`
 
-Data type: `Stdlib::Compat::Ip_address`
+Data type: `Optional[Stdlib::Compat::Ip_address]`
 
-Required IP address.
+IP address, required when ensure=present
+
+Default value: `undef`
 
 ##### `netmask`
 
-Data type: `Stdlib::Compat::Ip_address`
+Data type: `Optional[Stdlib::Compat::Ip_address]`
 
-Required netmask address.
+Netmask address, required when ensure=present
+
+Default value: `undef`
 
 ##### `gateway`
 

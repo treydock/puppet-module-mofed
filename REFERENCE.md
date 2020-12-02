@@ -59,6 +59,14 @@ The baseurl of the yumrepo resource
 
 Default value: `undef`
 
+##### `repo_gpgcheck`
+
+Data type: `Enum['1','0']`
+
+The gpgcheck of the yumrepo resource
+
+Default value: '1'
+
 ##### `repo_gpgkey`
 
 Data type: `Optional[String]`

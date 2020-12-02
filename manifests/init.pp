@@ -10,6 +10,8 @@
 #   Boolean to set if MOFED repo should be managed
 # @param repo_baseurl
 #   The baseurl of the yumrepo resource
+# @param repo_gpgcheck
+#   The gpgcheck of the yumrepo resource
 # @param repo_gpgkey
 #   The gpgkey of the yumrepo resource
 # @param repo_exclude
@@ -50,6 +52,7 @@
 class mofed (
   Boolean $manage_repo                      = true,
   Optional[String] $repo_baseurl            = undef,
+  Enum['1','0'] $repo_gpgcheck              = '1',
   Optional[String] $repo_gpgkey             = undef,
   Optional[String] $repo_exclude            = undef,
   Boolean $manage_packages                  = true,

@@ -10,7 +10,7 @@ class mofed::repo {
           baseurl  => $mofed::repo_baseurl,
           enabled  => '1',
           gpgkey   => $mofed::repo_gpgkey,
-          gpgcheck => '1',
+          gpgcheck => $mofed::repo_gpgcheck,
           exclude  => $mofed::repo_exclude,
         }
       }

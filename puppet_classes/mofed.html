@@ -139,6 +139,24 @@
   
     <li>
       
+        <span class='name'>repo_gpgcheck</span>
+      
+      
+        <span class='type'>(<tt>Enum['1','0']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;1&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The gpgcheck of the yumrepo resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>repo_gpgkey</span>
       
       
@@ -471,8 +489,6 @@
         <pre class="lines">
 
 
-50
-51
 52
 53
 54
@@ -520,14 +536,18 @@
 96
 97
 98
-99</pre>
+99
+100
+101
+102</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 50</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 52</span>
 
 class mofed (
   Boolean $manage_repo                      = true,
   Optional[String] $repo_baseurl            = undef,
+  Enum[&#39;1&#39;,&#39;0&#39;] $repo_gpgcheck              = &#39;1&#39;,
   Optional[String] $repo_gpgkey             = undef,
   Optional[String] $repo_exclude            = undef,
   Boolean $manage_packages                  = true,

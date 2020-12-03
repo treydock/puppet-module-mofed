@@ -1,7 +1,7 @@
 # puppet-module-mofed
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/treydock/mofed.svg)](https://forge.puppetlabs.com/treydock/mofed)
-[![Build Status](https://travis-ci.org/treydock/puppet-module-mofed.png)](https://travis-ci.org/treydock/puppet-module-mofed)
+[![CI Status](https://github.com/treydock/puppet-module-mofed/workflows/CI/badge.svg?branch=master)](https://github.com/treydock/puppet-module-mofed/actions?query=workflow%3ACI)
 
 #### Table of Contents
 

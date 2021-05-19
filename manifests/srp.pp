@@ -152,7 +152,6 @@ class mofed::srp (
           hasstatus  => true,
           hasrestart => true,
           require    => [
-            Exec['systemctl-daemon-reload'],
             File['/etc/modprobe.d/ib_srp.conf'],
           ],
           subscribe  => [

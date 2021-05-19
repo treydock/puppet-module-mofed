@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed::srp
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -333,8 +333,7 @@ will remove opensm.</p>
 164
 165
 166
-167
-168</pre>
+167</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/srp.pp', line 19</span>
@@ -475,7 +474,6 @@ class mofed::srp (
           hasstatus  =&gt; true,
           hasrestart =&gt; true,
           require    =&gt; [
-            Exec[&#39;systemctl-daemon-reload&#39;],
             File[&#39;/etc/modprobe.d/ib_srp.conf&#39;],
           ],
           subscribe  =&gt; [

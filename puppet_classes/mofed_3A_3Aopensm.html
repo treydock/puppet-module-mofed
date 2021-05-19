@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed::opensm
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -257,8 +257,7 @@ services. <code>absent</code> will remove opensm.</p>
 104
 105
 106
-107
-108</pre>
+107</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/opensm.pp', line 17</span>
@@ -344,7 +343,6 @@ class mofed::opensm (
           enable     =&gt; $service_enable,
           hasstatus  =&gt; true,
           hasrestart =&gt; true,
-          require    =&gt; Exec[&#39;systemctl-daemon-reload&#39;],
           subscribe  =&gt; [
             File[&#39;/etc/sysconfig/opensm&#39;],
             Systemd::Unit_file[&#39;opensmd@.service&#39;]

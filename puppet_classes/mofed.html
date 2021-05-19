@@ -6,7 +6,7 @@
 <title>
   Puppet Class: mofed
   
-    &mdash; Documentation by YARD 0.9.25
+    &mdash; Documentation by YARD 0.9.26
   
 </title>
 
@@ -187,6 +187,24 @@
         &mdash;
         <div class='inline'>
 <p>The exclude of the yumrepo resource</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>repo_priority</span>
+      
+      
+        <span class='type'>(<tt>Optional[String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The priority of the yumrepo resource</p>
 </div>
       
     </li>
@@ -490,8 +508,6 @@
         <pre class="lines">
 
 
-52
-53
 54
 55
 56
@@ -540,10 +556,13 @@
 99
 100
 101
-102</pre>
+102
+103
+104
+105</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 52</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 54</span>
 
 class mofed (
   Boolean $manage_repo                      = true,
@@ -551,6 +570,7 @@ class mofed (
   Enum[&#39;1&#39;,&#39;0&#39;] $repo_gpgcheck              = &#39;1&#39;,
   Optional[String] $repo_gpgkey             = undef,
   Optional[String] $repo_exclude            = undef,
+  Optional[String] $repo_priority           = undef,
   Boolean $manage_packages                  = true,
   String $package_ensure                    = &#39;present&#39;,
   String $package_name                      = &#39;mlnx-ofed-basic&#39;,

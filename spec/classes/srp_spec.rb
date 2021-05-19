@@ -111,7 +111,7 @@ describe 'mofed::srp' do
                                                           enable: 'true',
                                                           hasstatus: 'true',
                                                           hasrestart: 'true',
-                                                          require: ['Exec[systemctl-daemon-reload]', 'File[/etc/modprobe.d/ib_srp.conf]'],
+                                                          require: ['File[/etc/modprobe.d/ib_srp.conf]'],
                                                           subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'])
           end
 
@@ -120,7 +120,7 @@ describe 'mofed::srp' do
                                                           enable: 'true',
                                                           hasstatus: 'true',
                                                           hasrestart: 'true',
-                                                          require: ['Exec[systemctl-daemon-reload]', 'File[/etc/modprobe.d/ib_srp.conf]'],
+                                                          require: ['File[/etc/modprobe.d/ib_srp.conf]'],
                                                           subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'])
           end
         end

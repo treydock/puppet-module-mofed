@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'facter/util/file_read'
 require 'facter/util/mellanox_infiniband'
 
 describe Facter::Util::MellanoxInfiniband do

@@ -16,6 +16,8 @@
 #   The gpgkey of the yumrepo resource
 # @param repo_exclude
 #   The exclude of the yumrepo resource
+# @param repo_priority
+#   The priority of the yumrepo resource
 # @param manage_packages
 #   Boolean to determine if packages should be managed
 # @param package_ensure
@@ -55,6 +57,7 @@ class mofed (
   Enum['1','0'] $repo_gpgcheck              = '1',
   Optional[String] $repo_gpgkey             = undef,
   Optional[String] $repo_exclude            = undef,
+  Optional[String] $repo_priority           = undef,
   Boolean $manage_packages                  = true,
   String $package_ensure                    = 'present',
   String $package_name                      = 'mlnx-ofed-basic',

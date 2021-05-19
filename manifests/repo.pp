@@ -12,6 +12,7 @@ class mofed::repo {
           gpgkey   => $mofed::repo_gpgkey,
           gpgcheck => $mofed::repo_gpgcheck,
           exclude  => $mofed::repo_exclude,
+          priority => $mofed::repo_priority,
         }
       }
       default: {

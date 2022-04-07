@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.1.0](https://github.com/treydock/puppet-module-mofed/tree/v3.1.0) (2022-04-07)
+
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/v3.0.0...v3.1.0)
+
+### Added
+
+- Replace CentOS 8 with Rocky 8 - do not set NM\_CONTROLLED=no for EL8 by default [\#23](https://github.com/treydock/puppet-module-mofed/pull/23) ([treydock](https://github.com/treydock))
+
 ## [v3.0.0](https://github.com/treydock/puppet-module-mofed/tree/v3.0.0) (2021-05-19)
 
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/v2.3.1...v3.0.0)

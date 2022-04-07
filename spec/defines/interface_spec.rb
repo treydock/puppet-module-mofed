@@ -22,6 +22,14 @@ describe 'mofed::interface' do
         default_params
       end
 
+      let :fixture_suffix do
+        if facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i >= 8
+          '-no_nm_controlled'
+        else
+          ''
+        end
+      end
+
       it do
         is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with('ensure' => 'present',
                                                                                      'owner'   => 'root',
@@ -31,7 +39,7 @@ describe 'mofed::interface' do
 
       it do
         is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0') \
-          .with_content(my_fixture_read('ifcfg-ib0_with_connected_mode'))
+          .with_content(my_fixture_read("ifcfg-ib0_with_connected_mode#{fixture_suffix}"))
       end
 
       context 'ensure => absent' do
@@ -45,7 +53,7 @@ describe 'mofed::interface' do
           default_params.merge(enable: false)
         end
 
-        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_with_onboot_no')) }
+        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read("ifcfg-ib0_with_onboot_no#{fixture_suffix}")) }
       end
 
       context 'connected_mode => no' do
@@ -53,7 +61,7 @@ describe 'mofed::interface' do
           default_params.merge(connected_mode: 'no')
         end
 
-        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_without_connected_mode')) }
+        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read("ifcfg-ib0_without_connected_mode#{fixture_suffix}")) }
       end
 
       context 'mtu => 65520' do
@@ -61,7 +69,7 @@ describe 'mofed::interface' do
           default_params.merge(mtu: 65_520)
         end
 
-        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0'). with_content(my_fixture_read('ifcfg-ib0_with_mtu')) }
+        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0'). with_content(my_fixture_read("ifcfg-ib0_with_mtu#{fixture_suffix}")) }
       end
 
       context 'gateway => 192.168.1.254' do
@@ -69,7 +77,7 @@ describe 'mofed::interface' do
           default_params.merge(gateway: '192.168.1.254')
         end
 
-        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-ib0_with_gateway')) }
+        it { is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read("ifcfg-ib0_with_gateway#{fixture_suffix}")) }
       end
 
       context 'bonding => true' do
@@ -82,9 +90,9 @@ describe 'mofed::interface' do
         end
 
         it {
-          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read('ifcfg-bond-slave-ib0'))
-          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib1').with_content(my_fixture_read('ifcfg-bond-slave-ib1'))
-          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ibbond0').with_content(my_fixture_read('ifcfg-bond-master-ibbond0'))
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib0').with_content(my_fixture_read("ifcfg-bond-slave-ib0#{fixture_suffix}"))
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ib1').with_content(my_fixture_read("ifcfg-bond-slave-ib1#{fixture_suffix}"))
+          is_expected.to contain_file('/etc/sysconfig/network-scripts/ifcfg-ibbond0').with_content(my_fixture_read("ifcfg-bond-master-ibbond0#{fixture_suffix}"))
         }
       end
 

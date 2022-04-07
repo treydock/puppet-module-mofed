@@ -1,0 +1,13 @@
+# File Managed by Puppet
+DEVICE="ibbond0"
+BOOTPROTO="none"
+ONBOOT="yes"
+TYPE="Bond"
+USERCTL="no"
+PEERDNS="no"
+PEERNTP="no"
+IPADDR="192.168.1.1"
+NETMASK="255.255.255.0"
+BONDING_MASTER="yes"
+BONDING_OPTS="mode=active-backup miimon=100"
+MTU="65520"

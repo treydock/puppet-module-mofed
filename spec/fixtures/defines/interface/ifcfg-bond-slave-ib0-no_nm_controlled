@@ -1,0 +1,12 @@
+# File Managed by Puppet
+DEVICE="ib0"
+BOOTPROTO="none"
+ONBOOT="yes"
+TYPE="InfiniBand"
+USERCTL="no"
+PEERDNS="no"
+PEERNTP="no"
+MASTER="ibbond0"
+SLAVE="yes"
+MTU="65520"
+CONNECTED_MODE="yes"

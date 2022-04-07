@@ -1,0 +1,12 @@
+# File Managed by Puppet
+DEVICE="ib0"
+BOOTPROTO="none"
+ONBOOT="yes"
+TYPE="InfiniBand"
+USERCTL="no"
+PEERDNS="no"
+PEERNTP="no"
+IPADDR="192.168.1.1"
+NETMASK="255.255.255.0"
+MTU="65520"
+CONNECTED_MODE="yes"

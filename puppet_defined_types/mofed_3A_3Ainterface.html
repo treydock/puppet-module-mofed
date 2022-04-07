@@ -193,6 +193,24 @@
   
     <li>
       
+        <span class='name'>nm_controlled</span>
+      
+      
+        <span class='type'>(<tt>Optional[Variant[Boolean, Enum['yes','no']]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Value for nm_controlled on interface</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>connected_mode</span>
       
       
@@ -292,8 +310,6 @@
         <pre class="lines">
 
 
-32
-33
 34
 35
 36
@@ -375,10 +391,19 @@
 112
 113
 114
-115</pre>
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/interface.pp', line 32</span>
+        <pre class="code"><span class="info file"># File 'manifests/interface.pp', line 34</span>
 
 define mofed::interface(
   Enum[&#39;present&#39;, &#39;absent&#39;] $ensure           = &#39;present&#39;,
@@ -386,6 +411,7 @@ define mofed::interface(
   Optional[Stdlib::Compat::Ip_address] $netmask = undef ,
   Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Boolean $enable = true,
+  Optional[Variant[Boolean, Enum[&#39;yes&#39;,&#39;no&#39;]]] $nm_controlled = undef,
   Enum[&#39;yes&#39;, &#39;no&#39;] $connected_mode           = &#39;yes&#39;,
   Optional[Integer] $mtu = undef,
   Boolean $bonding = false,
@@ -414,6 +440,12 @@ define mofed::interface(
     &#39;CONNECTED_MODE&#39; =&gt; $connected_mode,
   }
 
+  if $mofed::osfamily == &#39;RedHat&#39; and versioncmp($mofed::osmajor, &#39;8&#39;) &gt;= 0 {
+    $_nm_controlled = pick($nm_controlled, false)
+  } else {
+    $_nm_controlled = pick($nm_controlled, &#39;no&#39;)
+  }
+
   if $bonding {
     if empty($bonding_slaves) {
       fail(&quot;No slave interfaces given for bonding interface ${name}&quot;)
@@ -428,7 +460,7 @@ define mofed::interface(
         type                 =&gt; &#39;InfiniBand&#39;,
         master               =&gt; $name,
         slave                =&gt; &#39;yes&#39;,
-        nm_controlled        =&gt; &#39;no&#39;,
+        nm_controlled        =&gt; $_nm_controlled,
         mtu                  =&gt; $mtu,
         options_extra_redhat =&gt; $options_extra_redhat,
       }
@@ -445,7 +477,7 @@ define mofed::interface(
       gateway        =&gt; $gateway,
       bonding_master =&gt; &#39;yes&#39;,
       bonding_opts   =&gt; $bonding_opts,
-      nm_controlled  =&gt; &#39;no&#39;,
+      nm_controlled  =&gt; $_nm_controlled,
       mtu            =&gt; $mtu,
     }
   } else {
@@ -457,7 +489,7 @@ define mofed::interface(
       ipaddress            =&gt; $ipaddr,
       netmask              =&gt; $netmask,
       gateway              =&gt; $gateway,
-      nm_controlled        =&gt; &#39;no&#39;,
+      nm_controlled        =&gt; $_nm_controlled,
       mtu                  =&gt; $mtu,
       options_extra_redhat =&gt; $options_extra_redhat,
     }

@@ -18,6 +18,8 @@
 #   Interface ensure value.
 # @param enable
 #   Boolean of whether to enable the interface at boot.
+# @param nm_controlled
+#   Value for nm_controlled on interface
 # @param connected_mode
 #   The value for setting interface to connected mode.
 # @param mtu
@@ -35,6 +37,7 @@ define mofed::interface(
   Optional[Stdlib::Compat::Ip_address] $netmask = undef ,
   Optional[Stdlib::Compat::Ip_address] $gateway = undef,
   Boolean $enable = true,
+  Optional[Variant[Boolean, Enum['yes','no']]] $nm_controlled = undef,
   Enum['yes', 'no'] $connected_mode           = 'yes',
   Optional[Integer] $mtu = undef,
   Boolean $bonding = false,
@@ -63,6 +66,12 @@ define mofed::interface(
     'CONNECTED_MODE' => $connected_mode,
   }
 
+  if $mofed::osfamily == 'RedHat' and versioncmp($mofed::osmajor, '8') >= 0 {
+    $_nm_controlled = pick($nm_controlled, false)
+  } else {
+    $_nm_controlled = pick($nm_controlled, 'no')
+  }
+
   if $bonding {
     if empty($bonding_slaves) {
       fail("No slave interfaces given for bonding interface ${name}")
@@ -77,7 +86,7 @@ define mofed::interface(
         type                 => 'InfiniBand',
         master               => $name,
         slave                => 'yes',
-        nm_controlled        => 'no',
+        nm_controlled        => $_nm_controlled,
         mtu                  => $mtu,
         options_extra_redhat => $options_extra_redhat,
       }
@@ -94,7 +103,7 @@ define mofed::interface(
       gateway        => $gateway,
       bonding_master => 'yes',
       bonding_opts   => $bonding_opts,
-      nm_controlled  => 'no',
+      nm_controlled  => $_nm_controlled,
       mtu            => $mtu,
     }
   } else {
@@ -106,7 +115,7 @@ define mofed::interface(
       ipaddress            => $ipaddr,
       netmask              => $netmask,
       gateway              => $gateway,
-      nm_controlled        => 'no',
+      nm_controlled        => $_nm_controlled,
       mtu                  => $mtu,
       options_extra_redhat => $options_extra_redhat,
     }

@@ -79,7 +79,7 @@ define mofed::interface(
 
     # Setup interfaces for the slaves
     $bonding_slaves.each |String $ifname| {
-      network::interface { $ifname:
+      network_config { $ifname:
         ensure               => $ensure,
         enable               => $enable,
         onboot               => $onboot,
@@ -93,7 +93,7 @@ define mofed::interface(
     }
 
     # Setup the bonding interface
-    network::interface { $name:
+    network_config { $name:
       ensure         => $ensure,
       enable         => $enable,
       onboot         => $onboot,
@@ -107,7 +107,7 @@ define mofed::interface(
       mtu            => $mtu,
     }
   } else {
-    network::interface { $name:
+    network_config { $name:
       ensure               => $ensure,
       enable               => $enable,
       onboot               => $onboot,

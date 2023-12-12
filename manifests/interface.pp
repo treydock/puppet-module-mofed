@@ -87,6 +87,7 @@ define mofed::interface(
         mtu                  => $mtu,
         method               => 'static',
         hotplug              => 'false',
+        type                 => 'Infiniband',
       }
     }
 
@@ -101,6 +102,7 @@ define mofed::interface(
       mtu            => $mtu,
       method         => 'static',
       hotplug        => 'false',
+      type           => 'Infiniband',
     }
   } else {
     network_config { $name:
@@ -111,6 +113,7 @@ define mofed::interface(
       mtu                  => $mtu,
       method               => 'static',
       hotplug              => 'false',
+      type                 => 'Infiniband',
     }
   }
 

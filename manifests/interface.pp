@@ -85,7 +85,6 @@ define mofed::interface(
         master               => $name,
         slave                => 'yes',
         mtu                  => $mtu,
-        options_extra_redhat => $options_extra_redhat,
       }
     }
 
@@ -106,7 +105,6 @@ define mofed::interface(
       ipaddress            => $ipaddr,
       netmask              => $netmask,
       mtu                  => $mtu,
-      options_extra_redhat => $options_extra_redhat,
     }
   }
 

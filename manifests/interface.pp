@@ -82,7 +82,6 @@ define mofed::interface(
       network_config { $ifname:
         ensure               => $ensure,
         onboot               => $onboot,
-        type                 => 'InfiniBand',
         master               => $name,
         slave                => 'yes',
         nm_controlled        => $_nm_controlled,
@@ -95,7 +94,6 @@ define mofed::interface(
     network_config { $name:
       ensure         => $ensure,
       onboot         => $onboot,
-      type           => 'Bond',
       ipaddress      => $ipaddr,
       netmask        => $netmask,
       gateway        => $gateway,
@@ -108,7 +106,6 @@ define mofed::interface(
     network_config { $name:
       ensure               => $ensure,
       onboot               => $onboot,
-      type                 => 'InfiniBand',
       ipaddress            => $ipaddr,
       netmask              => $netmask,
       gateway              => $gateway,

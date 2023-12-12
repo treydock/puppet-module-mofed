@@ -85,6 +85,8 @@ define mofed::interface(
         master               => $name,
         slave                => 'yes',
         mtu                  => $mtu,
+        method               => 'static',
+        hotplug              => 'false',
       }
     }
 
@@ -97,6 +99,8 @@ define mofed::interface(
       bonding_master => 'yes',
       bonding_opts   => $bonding_opts,
       mtu            => $mtu,
+      method         => 'static',
+      hotplug        => 'false',
     }
   } else {
     network_config { $name:
@@ -105,6 +109,8 @@ define mofed::interface(
       ipaddress            => $ipaddr,
       netmask              => $netmask,
       mtu                  => $mtu,
+      method               => 'static',
+      hotplug              => 'false',
     }
   }
 

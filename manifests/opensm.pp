@@ -25,18 +25,21 @@ class mofed::opensm (
     'present': {
       $package_ensure = 'present'
       $file_ensure    = 'file'
+      $unit_ensure    = 'present'
       $service_ensure = 'running'
       $service_enable = true
     }
     'absent': {
       $package_ensure = 'absent'
       $file_ensure    = 'absent'
+      $unit_ensure    = 'absent'
       $service_ensure = 'stopped'
       $service_enable = false
     }
     'disabled': {
       $package_ensure = 'present'
       $file_ensure    = 'file'
+      $unit_ensure    = 'present'
       $service_ensure = 'stopped'
       $service_enable = false
     }
@@ -82,7 +85,7 @@ class mofed::opensm (
     }
 
     systemd::unit_file { 'opensmd@.service':
-      ensure => $file_ensure,
+      ensure => $unit_ensure,
       source => 'puppet:///modules/mofed/opensm/opensmd@.service',
     }
 

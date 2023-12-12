@@ -37,7 +37,7 @@ define mofed::interface (
   Optional[Stdlib::IP::Address] $netmask = undef ,
   Optional[Stdlib::IP::Address] $gateway = undef,
   Boolean $enable = true,
-  Optional[Variant[Boolean, Enum['yes','no']]] $nm_controlled = undef,
+  Optional[Enum['yes','no']] $nm_controlled = undef,
   Enum['yes', 'no'] $connected_mode = 'yes',
   Optional[Integer] $mtu = undef,
   Boolean $bonding = false,
@@ -55,20 +55,10 @@ define mofed::interface (
 
   include mofed
 
-  $onboot = $enable ? {
-    true    => 'yes',
-    false   => 'no',
-    default => $enable,
-  }
-
-  $options_extra_redhat = {
-    'CONNECTED_MODE' => $connected_mode,
-  }
-
-  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
-    $_nm_controlled = pick($nm_controlled, false)
-  } else {
+  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '7') == 0 {
     $_nm_controlled = pick($nm_controlled, 'no')
+  } else {
+    $_nm_controlled = $nm_controlled
   }
 
   if $bonding {
@@ -78,45 +68,55 @@ define mofed::interface (
 
     # Setup interfaces for the slaves
     $bonding_slaves.each |String $ifname| {
-      network::interface { $ifname:
-        ensure               => $ensure,
-        enable               => $enable,
-        onboot               => $onboot,
-        type                 => 'InfiniBand',
-        master               => $name,
-        slave                => 'yes',
-        nm_controlled        => $_nm_controlled,
-        mtu                  => $mtu,
-        options_extra_redhat => $options_extra_redhat,
+      network_config { $ifname:
+        ensure  => $ensure,
+        onboot  => $enable,
+        mtu     => $mtu,
+        method  => 'static',
+        hotplug => false,
+        options => {
+          'TYPE'           => 'Infiniband',
+          'MASTER'         => $name,
+          'SLAVE'          => 'yes',
+          'CONNECTED_MODE' => $connected_mode,
+          'NM_CONTROLLED'  => $_nm_controlled,
+        }.filter |$k, $v| { $v =~ NotUndef },
       }
     }
 
     # Setup the bonding interface
-    network::interface { $name:
-      ensure         => $ensure,
-      enable         => $enable,
-      onboot         => $onboot,
-      type           => 'Bond',
-      ipaddress      => $ipaddr,
-      netmask        => $netmask,
-      gateway        => $gateway,
-      bonding_master => 'yes',
-      bonding_opts   => $bonding_opts,
-      nm_controlled  => $_nm_controlled,
-      mtu            => $mtu,
+    network_config { $name:
+      ensure    => $ensure,
+      onboot    => $enable,
+      ipaddress => $ipaddr,
+      netmask   => $netmask,
+      mtu       => $mtu,
+      method    => 'static',
+      hotplug   => false,
+      options   => {
+        'TYPE'           => 'Infiniband',
+        'BONDING_MASTER' => 'yes',
+        'BONDING_OPTS'   => $bonding_opts,
+        'GATEWAY'        => $gateway,
+        'CONNECTED_MODE' => $connected_mode,
+        'NM_CONTROLLED'  => $_nm_controlled,
+      }.filter |$k, $v| { $v =~ NotUndef },
     }
   } else {
-    network::interface { $name:
-      ensure               => $ensure,
-      enable               => $enable,
-      onboot               => $onboot,
-      type                 => 'InfiniBand',
-      ipaddress            => $ipaddr,
-      netmask              => $netmask,
-      gateway              => $gateway,
-      nm_controlled        => $_nm_controlled,
-      mtu                  => $mtu,
-      options_extra_redhat => $options_extra_redhat,
+    network_config { $name:
+      ensure    => $ensure,
+      onboot    => $enable,
+      ipaddress => $ipaddr,
+      netmask   => $netmask,
+      mtu       => $mtu,
+      method    => 'static',
+      hotplug   => false,
+      options   => {
+        'TYPE'           => 'Infiniband',
+        'GATEWAY'        => $gateway,
+        'CONNECTED_MODE' => $connected_mode,
+        'NM_CONTROLLED'  => $_nm_controlled,
+      }.filter |$k, $v| { $v =~ NotUndef },
     }
   }
 }

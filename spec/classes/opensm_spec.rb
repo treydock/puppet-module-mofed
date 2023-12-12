@@ -16,7 +16,7 @@ describe 'mofed::opensm' do
 
       it do
         is_expected.to contain_package('opensm').with(ensure: 'present',
-                                                      require: 'Class[Mofed::Repo]')
+                                                      require: 'Class[Mofed::Repo]',)
       end
 
       it do
@@ -24,13 +24,13 @@ describe 'mofed::opensm' do
                                                                   owner: 'root',
                                                                   group: 'root',
                                                                   mode: '0644',
-                                                                  require: 'Package[opensm]')
+                                                                  require: 'Package[opensm]',)
       end
 
       it do
         verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
-                                'SWEEP=10'
-                              ])
+                                'SWEEP=10',
+                              ],)
       end
 
       it do
@@ -38,7 +38,7 @@ describe 'mofed::opensm' do
                                                        enable: 'true',
                                                        hasstatus: 'true',
                                                        hasrestart: 'true',
-                                                       subscribe: 'File[/etc/sysconfig/opensm]')
+                                                       subscribe: 'File[/etc/sysconfig/opensm]',)
       end
 
       it do
@@ -48,7 +48,7 @@ describe 'mofed::opensm' do
       context 'when ports defined' do
         let(:params) do
           {
-            ports: ['mlx5_0 1', 'mlx5_0 2']
+            ports: ['mlx5_0 1', 'mlx5_0 2'],
           }
         end
 
@@ -58,8 +58,8 @@ describe 'mofed::opensm' do
           verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
                                   'SWEEP=10',
                                   'PORT_1=mlx5_0 1',
-                                  'PORT_2=mlx5_0 2'
-                                ])
+                                  'PORT_2=mlx5_0 2',
+                                ],)
         end
 
         it do
@@ -67,12 +67,12 @@ describe 'mofed::opensm' do
                                                          enable: 'false',
                                                          hasstatus: 'true',
                                                          hasrestart: 'true',
-                                                         require: 'Package[opensm]')
+                                                         require: 'Package[opensm]',)
         end
 
         if facts[:operatingsystemrelease].to_i >= 7.0
           it do
-            is_expected.to contain_systemd__unit_file('opensmd@.service').with_ensure('file')
+            is_expected.to contain_systemd__unit_file('opensmd@.service').with_ensure('present')
           end
 
           it do
@@ -80,7 +80,7 @@ describe 'mofed::opensm' do
                                                              enable: 'true',
                                                              hasstatus: 'true',
                                                              hasrestart: 'true',
-                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'])
+                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'],)
           end
 
           it do
@@ -88,7 +88,7 @@ describe 'mofed::opensm' do
                                                              enable: 'true',
                                                              hasstatus: 'true',
                                                              hasrestart: 'true',
-                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'])
+                                                             subscribe: ['File[/etc/sysconfig/opensm]', 'Systemd::Unit_file[opensmd@.service]'],)
           end
         end
       end
@@ -105,7 +105,7 @@ describe 'mofed::opensm' do
           let(:params) do
             {
               ensure: 'disabled',
-              ports: ['mlx5_0 1', 'mlx5_0 2']
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
             }
           end
 
@@ -137,7 +137,7 @@ describe 'mofed::opensm' do
           let(:params) do
             {
               ensure: 'absent',
-              ports: ['mlx5_0 1', 'mlx5_0 2']
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
             }
           end
 

@@ -1,20 +1,20 @@
 fixtures:
-  repositories:
+  forge_modules:
     yumrepo_core:
-      repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
+      repo: puppetlabs/yumrepo_core
     stdlib:
-      repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
-      ref: v8.6.0
+      repo: puppetlabs/stdlib
     augeasproviders_core:
-      repo: https://github.com/voxpupuli/puppet-augeasproviders_core.git
+      repo: puppet/augeasproviders_core
     augeasproviders_shellvar:
-      repo: https://github.com/voxpupuli/puppet-augeasproviders_shellvar.git
+      repo: puppet/augeasproviders_shellvar
     systemd:
-      repo: https://github.com/voxpupuli/puppet-systemd.git
+      repo: puppet/systemd
     rsyslog:
-      repo: https://github.com/saz/puppet-rsyslog.git
+      repo: saz/rsyslog
     network:
-      repo: https://github.com/example42/puppet-network.git
-      ref: v3.6.1
+      repo: puppet/network
+    filemapper:
+      repo: puppet/filemapper
   symlinks:
     mofed: "#{source_dir}"

@@ -81,7 +81,6 @@ define mofed::interface(
     $bonding_slaves.each |String $ifname| {
       network_config { $ifname:
         ensure               => $ensure,
-        enable               => $enable,
         onboot               => $onboot,
         type                 => 'InfiniBand',
         master               => $name,
@@ -95,7 +94,6 @@ define mofed::interface(
     # Setup the bonding interface
     network_config { $name:
       ensure         => $ensure,
-      enable         => $enable,
       onboot         => $onboot,
       type           => 'Bond',
       ipaddress      => $ipaddr,
@@ -109,7 +107,6 @@ define mofed::interface(
   } else {
     network_config { $name:
       ensure               => $ensure,
-      enable               => $enable,
       onboot               => $onboot,
       type                 => 'InfiniBand',
       ipaddress            => $ipaddr,

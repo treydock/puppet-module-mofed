@@ -84,7 +84,6 @@ define mofed::interface(
         onboot               => $onboot,
         master               => $name,
         slave                => 'yes',
-        nm_controlled        => $_nm_controlled,
         mtu                  => $mtu,
         options_extra_redhat => $options_extra_redhat,
       }
@@ -98,7 +97,6 @@ define mofed::interface(
       netmask        => $netmask,
       bonding_master => 'yes',
       bonding_opts   => $bonding_opts,
-      nm_controlled  => $_nm_controlled,
       mtu            => $mtu,
     }
   } else {
@@ -107,7 +105,6 @@ define mofed::interface(
       onboot               => $onboot,
       ipaddress            => $ipaddr,
       netmask              => $netmask,
-      nm_controlled        => $_nm_controlled,
       mtu                  => $mtu,
       options_extra_redhat => $options_extra_redhat,
     }

@@ -75,15 +75,6 @@ class mofed (
   Hash $openib_shellvars                    = {},
   Hash $interfaces                          = {}
 ) {
-
-  $osfamily = $facts.dig('os', 'family')
-  $osmajor = $facts.dig('os', 'release', 'major')
-  $supported = ['RedHat-6','RedHat-7','RedHat-8']
-  $os = "${osfamily}-${osmajor}"
-  if ! ($os in $supported) {
-    fail("Unsupported OS: ${osfamily}, module ${module_name} only supports RedHat 6, 7, and 8")
-  }
-
   if $restart_service {
     $openib_shellvar_notify = Service['openibd']
   } else {
@@ -101,5 +92,4 @@ class mofed (
   -> Class['mofed::service']
 
   create_resources('mofed::interface', $interfaces)
-
 }

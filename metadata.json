@@ -13,12 +13,12 @@
       "version_requirement": ">= 4.13.1 <9.0.0"
     },
     {
-      "name": "herculesteam/augeasproviders_shellvar",
-      "version_requirement": ">= 2.0.0 <5.0.0"
+      "name": "puppet/augeasproviders_shellvar",
+      "version_requirement": ">= 5.0.0 <6.0.0"
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 0.3.0 <4.0.0"
+      "version_requirement": ">= 0.3.0 <7.0.0"
     },
     {
       "name": "saz/rsyslog",
@@ -34,7 +34,8 @@
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
@@ -46,14 +47,22 @@
     {
       "operatingsystem": "Rocky",
       "operatingsystemrelease": [
-        "8"
+        "8",
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "AlmaLinux",
+      "operatingsystemrelease": [
+        "8",
+        "9"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.1.0 < 8.0.0"
+      "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
   "tags": [
@@ -62,7 +71,7 @@
     "infiniband",
     "hpc"
   ],
-  "pdk-version": "2.1.0",
+  "pdk-version": "2.7.1",
   "template-url": "https://github.com/treydock/pdk-templates.git#master",
-  "template-ref": "heads/master-0-g089be8b"
+  "template-ref": "heads/master-0-g52b1622"
 }

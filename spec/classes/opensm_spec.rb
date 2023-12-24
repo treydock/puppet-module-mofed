@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'mofed::opensm' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "when #{os}" do
       let(:facts) do
         facts.merge(concat_basedir: '/dne')
       end
@@ -27,7 +29,7 @@ describe 'mofed::opensm' do
 
       it do
         verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
-                                'SWEEP=10',
+                                'SWEEP=10'
                               ])
       end
 
@@ -46,7 +48,7 @@ describe 'mofed::opensm' do
       context 'when ports defined' do
         let(:params) do
           {
-            ports: ['mlx5_0 1', 'mlx5_0 2'],
+            ports: ['mlx5_0 1', 'mlx5_0 2']
           }
         end
 
@@ -56,7 +58,7 @@ describe 'mofed::opensm' do
           verify_exact_contents(catalogue, '/etc/sysconfig/opensm', [
                                   'SWEEP=10',
                                   'PORT_1=mlx5_0 1',
-                                  'PORT_2=mlx5_0 2',
+                                  'PORT_2=mlx5_0 2'
                                 ])
         end
 
@@ -103,7 +105,7 @@ describe 'mofed::opensm' do
           let(:params) do
             {
               ensure: 'disabled',
-              ports: ['mlx5_0 1', 'mlx5_0 2'],
+              ports: ['mlx5_0 1', 'mlx5_0 2']
             }
           end
 
@@ -135,7 +137,7 @@ describe 'mofed::opensm' do
           let(:params) do
             {
               ensure: 'absent',
-              ports: ['mlx5_0 1', 'mlx5_0 2'],
+              ports: ['mlx5_0 1', 'mlx5_0 2']
             }
           end
 
@@ -150,6 +152,6 @@ describe 'mofed::opensm' do
           end
         end
       end
-    end # end context
-  end # end on_supported_os loop
-end # end describe
+    end
+  end
+end

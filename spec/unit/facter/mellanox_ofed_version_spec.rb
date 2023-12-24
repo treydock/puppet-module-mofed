@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'mellanox_ofed_version fact' do
-  context 'on Linux' do
+  context 'when Linux' do
     before(:each) do
       Facter.clear
       allow(Facter.fact(:kernel)).to receive(:value).and_return('Linux')
@@ -25,7 +27,7 @@ describe 'mellanox_ofed_version fact' do
     end
   end
 
-  context 'on Windows' do
+  context 'when Windows' do
     before(:each) do
       Facter.clear
       allow(Facter.fact(:kernel)).to receive(:value).and_return('windows')

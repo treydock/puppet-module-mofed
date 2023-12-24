@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'facter/util/mellanox_infiniband'
 
@@ -8,7 +10,7 @@ describe Facter::Util::MellanoxInfiniband do
 
   describe 'lspci' do
     it 'returns output' do
-      expect(Facter::Util::Resolution).to receive(:exec).with('lspci -n 2>/dev/null').and_return('foo')
+      allow(Facter::Util::Resolution).to receive(:exec).with('lspci -n 2>/dev/null').and_return('foo')
       expect(described_class.lspci).to eq('foo')
     end
   end

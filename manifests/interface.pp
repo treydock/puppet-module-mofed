@@ -31,20 +31,19 @@
 # @param bonding_opts
 #   The bonding options to use for this bonding interface
 #
-define mofed::interface(
-  Enum['present', 'absent'] $ensure           = 'present',
-  Optional[Stdlib::Compat::Ip_address] $ipaddr = undef,
-  Optional[Stdlib::Compat::Ip_address] $netmask = undef ,
-  Optional[Stdlib::Compat::Ip_address] $gateway = undef,
+define mofed::interface (
+  Enum['present', 'absent'] $ensure = 'present',
+  Optional[Stdlib::IP::Address] $ipaddr = undef,
+  Optional[Stdlib::IP::Address] $netmask = undef ,
+  Optional[Stdlib::IP::Address] $gateway = undef,
   Boolean $enable = true,
   Optional[Variant[Boolean, Enum['yes','no']]] $nm_controlled = undef,
-  Enum['yes', 'no'] $connected_mode           = 'yes',
+  Enum['yes', 'no'] $connected_mode = 'yes',
   Optional[Integer] $mtu = undef,
   Boolean $bonding = false,
   Array[String] $bonding_slaves = [],
   String $bonding_opts = 'mode=active-backup miimon=100',
 ) {
-
   if $ensure == 'present' {
     if ! $ipaddr {
       fail('ipaddr is required with ensure=present')
@@ -66,7 +65,7 @@ define mofed::interface(
     'CONNECTED_MODE' => $connected_mode,
   }
 
-  if $mofed::osfamily == 'RedHat' and versioncmp($mofed::osmajor, '8') >= 0 {
+  if $facts['os']['family'] == 'RedHat' and versioncmp($facts['os']['release']['major'], '8') >= 0 {
     $_nm_controlled = pick($nm_controlled, false)
   } else {
     $_nm_controlled = pick($nm_controlled, 'no')
@@ -120,5 +119,4 @@ define mofed::interface(
       options_extra_redhat => $options_extra_redhat,
     }
   }
-
 }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fact: has_mellanox_infiniband
 #
 # Purpose: Determine if the system's hardware supports Mellanox InfiniBand.
@@ -12,6 +14,6 @@ Facter.add(:has_mellanox_infiniband) do
   confine kernel: 'Linux'
   setcode do
     ib_device_count = Facter::Util::MellanoxInfiniband.count_ib_devices
-    ib_device_count > 0
+    ib_device_count.positive?
   end
 end

@@ -11,5 +11,4 @@ class mofed::config {
 
     create_resources('shellvar', $mofed::openib_shellvars, $_shellvar_defaults)
   }
-
 }

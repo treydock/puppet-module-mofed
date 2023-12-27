@@ -19,7 +19,6 @@ class mofed::opensm (
   Array $ports = [],
   Integer $sweep = 10,
 ) {
-
   include mofed
 
   case $ensure {
@@ -82,26 +81,23 @@ class mofed::opensm (
       require    => Package['opensm'],
     }
 
-    if versioncmp($::operatingsystemrelease, '7.0') >= 0 {
-      systemd::unit_file { 'opensmd@.service':
-        ensure => $file_ensure,
-        source => 'puppet:///modules/mofed/opensm/opensmd@.service',
-      }
+    systemd::unit_file { 'opensmd@.service':
+      ensure => $file_ensure,
+      source => 'puppet:///modules/mofed/opensm/opensmd@.service',
+    }
 
-      $ports.each |Integer $index, String $port| {
-        $i = $index + 1
-        service { "opensmd@${i}":
-          ensure     => $service_ensure,
-          enable     => $service_enable,
-          hasstatus  => true,
-          hasrestart => true,
-          subscribe  => [
-            File['/etc/sysconfig/opensm'],
-            Systemd::Unit_file['opensmd@.service']
-          ]
-        }
+    $ports.each |Integer $index, String $port| {
+      $i = $index + 1
+      service { "opensmd@${i}":
+        ensure     => $service_ensure,
+        enable     => $service_enable,
+        hasstatus  => true,
+        hasrestart => true,
+        subscribe  => [
+          File['/etc/sysconfig/opensm'],
+          Systemd::Unit_file['opensmd@.service']
+        ],
       }
     }
   }
-
 }

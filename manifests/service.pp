@@ -2,12 +2,8 @@
 class mofed::service {
   assert_private()
 
-  if is_string($mofed::openibd_service_enable) {
-    if $mofed::openibd_service_enable in ['UNSET', 'undef'] {
-      $_enable = undef
-    } else {
-      $_enable = $mofed::openibd_service_enable
-    }
+  if $mofed::openibd_service_enable in ['UNSET', 'undef'] {
+    $_enable = undef
   } else {
     $_enable = $mofed::openibd_service_enable
   }
@@ -21,5 +17,4 @@ class mofed::service {
       hasrestart => $mofed::openibd_service_hasrestart,
     }
   }
-
 }

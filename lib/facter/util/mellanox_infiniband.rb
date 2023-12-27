@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # Class for Mellanox Infiniband fact functions
 class Facter::Util::MellanoxInfiniband
   # REF: http://cateee.net/lkddb/web-lkddb/INFINIBAND.html
-  LSPCI_IB_REGEX = %r{\s15b3:}
+  LSPCI_IB_REGEX = %r{\s15b3:}.freeze
 
   # lspci is a delegating helper method intended to make it easier to stub the
   # system call without affecting other calls to Facter::Core::Execution.exec

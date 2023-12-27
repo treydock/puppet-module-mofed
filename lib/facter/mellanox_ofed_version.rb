@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fact: mellanox_ofed_version
 #
 # Purpose: Determine version of Mellanox OFED installed

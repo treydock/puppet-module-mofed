@@ -3,7 +3,7 @@ class mofed::repo {
   assert_private()
 
   if $mofed::manage_repo {
-    case $::osfamily {
+    case $facts['os']['family'] {
       'RedHat': {
         yumrepo { 'mlnx_ofed':
           descr    => 'MLNX_OFED Repository',
@@ -20,5 +20,4 @@ class mofed::repo {
       }
     }
   }
-
 }

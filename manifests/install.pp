@@ -18,5 +18,4 @@ class mofed::install {
       ensure_packages($extra_packages)
     }
   }
-
 }

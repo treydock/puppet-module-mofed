@@ -22,7 +22,6 @@ class mofed::srp (
   Optional[Variant[String, Array]] $srp_daemon_config = undef,
   Optional[Hash[String, Variant[String,Integer], 1]] $ib_srp_options = undef,
 ) {
-
   include mofed
 
   case $ensure {
@@ -63,7 +62,7 @@ class mofed::srp (
       target  => $mofed::openib_config_path,
       value   => $srp_load,
       notify  => $mofed::openib_shellvar_notify,
-      require => Class['::mofed::install'],
+      require => Class['mofed::install'],
     }
   }
 
@@ -138,30 +137,27 @@ class mofed::srp (
       require    => Package['srptools'],
     }
 
-    if versioncmp($::operatingsystemrelease, '7.0') >= 0 {
-      systemd::unit_file { 'srpd@.service':
-        ensure => $file_ensure,
-        source => 'puppet:///modules/mofed/srp/srpd@.service',
-      }
+    systemd::unit_file { 'srpd@.service':
+      ensure => $file_ensure,
+      source => 'puppet:///modules/mofed/srp/srpd@.service',
+    }
 
-      $ports.each |Integer $index, String $port| {
-        $i = $index + 1
-        service { "srpd@${i}":
-          ensure     => $service_ensure,
-          enable     => $service_enable,
-          hasstatus  => true,
-          hasrestart => true,
-          require    => [
-            File['/etc/modprobe.d/ib_srp.conf'],
-          ],
-          subscribe  => [
-            File['/etc/sysconfig/srpd'],
-            File['/etc/srp_daemon.conf'],
-            Systemd::Unit_file['srpd@.service'],
-          ]
-        }
+    $ports.each |Integer $index, String $port| {
+      $i = $index + 1
+      service { "srpd@${i}":
+        ensure     => $service_ensure,
+        enable     => $service_enable,
+        hasstatus  => true,
+        hasrestart => true,
+        require    => [
+          File['/etc/modprobe.d/ib_srp.conf'],
+        ],
+        subscribe  => [
+          File['/etc/sysconfig/srpd'],
+          File['/etc/srp_daemon.conf'],
+          Systemd::Unit_file['srpd@.service'],
+        ],
       }
     }
   }
-
 }

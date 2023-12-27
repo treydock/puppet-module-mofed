@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'mofed' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "when #{os}" do
       let(:facts) do
         facts.merge(concat_basedir: '/dne')
       end
@@ -16,9 +18,26 @@ describe 'mofed' do
       it { is_expected.to contain_class('mofed::config').that_comes_before('Class[mofed::service]') }
       it { is_expected.to contain_class('mofed::service') }
 
-      include_context 'mofed::install'
-      include_context 'mofed::config'
-      include_context 'mofed::service'
-    end # end context
-  end # end on_supported_os loop
-end # end describe
+      describe 'mofed::install' do
+        it do
+          is_expected.to contain_package('mlnx-ofed').only_with(
+            ensure: 'present',
+            name: 'mlnx-ofed-basic',
+          )
+        end
+      end
+
+      describe 'mofed::service' do
+        it do
+          is_expected.to contain_service('openibd').only_with(
+            ensure: 'running',
+            enable: 'true',
+            name: 'openibd',
+            hasstatus: 'true',
+            hasrestart: 'true',
+          )
+        end
+      end
+    end
+  end
+end

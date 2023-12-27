@@ -4,12 +4,13 @@ fixtures:
       repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
     stdlib:
       repo: https://github.com/puppetlabs/puppetlabs-stdlib.git
+      ref: v8.6.0
     augeasproviders_core:
-      repo: https://github.com/hercules-team/augeasproviders_core.git
+      repo: https://github.com/voxpupuli/puppet-augeasproviders_core.git
     augeasproviders_shellvar:
-      repo: https://github.com/hercules-team/augeasproviders_shellvar.git
+      repo: https://github.com/voxpupuli/puppet-augeasproviders_shellvar.git
     systemd:
-      repo: https://github.com/camptocamp/puppet-systemd.git
+      repo: https://github.com/voxpupuli/puppet-systemd.git
     rsyslog:
       repo: https://github.com/saz/puppet-rsyslog.git
     network:

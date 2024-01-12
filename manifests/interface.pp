@@ -88,8 +88,9 @@ define mofed::interface(
         method               => 'static',
         hotplug              => 'false',
         options              => {
-          'TYPE'          => 'Infiniband',
-          'NM_CONTROLLED' => $_nm_controlled,
+          'TYPE'           => 'Infiniband',
+          'NM_CONTROLLED'  => $_nm_controlled,
+          'CONNECTED_MODE' => $connected_mode,
         }
       }
     }
@@ -106,9 +107,10 @@ define mofed::interface(
       method         => 'static',
       hotplug        => 'false',
       options        => {
-        'TYPE'          => 'Infiniband',
-        'NM_CONTROLLED' => $_nm_controlled,
-        'GATEWAY'       => $gateway,
+        'TYPE'           => 'Infiniband',
+        'NM_CONTROLLED'  => $_nm_controlled,
+        'GATEWAY'        => $gateway,
+        'CONNECTED_MODE' => $connected_mode,
       }
     }
   } else {
@@ -121,11 +123,10 @@ define mofed::interface(
       method               => 'static',
       hotplug              => 'false',
       options              => {
-        'TYPE'          => 'Infiniband',
-        'NM_CONTROLLED' => $_nm_controlled,
-        'GATEWAY'       => $gateway,
+        'TYPE'           => 'Infiniband',
+        'NM_CONTROLLED'  => $_nm_controlled,
+        'CONNECTED_MODE' => $connected_mode,
       }
     }
   }
-
 }

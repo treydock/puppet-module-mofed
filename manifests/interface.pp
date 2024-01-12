@@ -78,45 +78,54 @@ define mofed::interface (
 
     # Setup interfaces for the slaves
     $bonding_slaves.each |String $ifname| {
-      network::interface { $ifname:
+      network_config { $ifname:
         ensure               => $ensure,
-        enable               => $enable,
         onboot               => $onboot,
-        type                 => 'InfiniBand',
         master               => $name,
         slave                => 'yes',
-        nm_controlled        => $_nm_controlled,
         mtu                  => $mtu,
-        options_extra_redhat => $options_extra_redhat,
+        method               => 'static',
+        hotplug              => 'false',
+        options              => {
+          'TYPE'           => 'Infiniband',
+          'NM_CONTROLLED'  => $_nm_controlled,
+          'CONNECTED_MODE' => $connected_mode,
+        }
       }
     }
 
     # Setup the bonding interface
-    network::interface { $name:
+    network_config { $name:
       ensure         => $ensure,
-      enable         => $enable,
       onboot         => $onboot,
-      type           => 'Bond',
       ipaddress      => $ipaddr,
       netmask        => $netmask,
-      gateway        => $gateway,
       bonding_master => 'yes',
       bonding_opts   => $bonding_opts,
-      nm_controlled  => $_nm_controlled,
       mtu            => $mtu,
+      method         => 'static',
+      hotplug        => 'false',
+      options        => {
+        'TYPE'           => 'Infiniband',
+        'NM_CONTROLLED'  => $_nm_controlled,
+        'GATEWAY'        => $gateway,
+        'CONNECTED_MODE' => $connected_mode,
+      }
     }
   } else {
-    network::interface { $name:
+    network_config { $name:
       ensure               => $ensure,
-      enable               => $enable,
       onboot               => $onboot,
-      type                 => 'InfiniBand',
       ipaddress            => $ipaddr,
       netmask              => $netmask,
-      gateway              => $gateway,
-      nm_controlled        => $_nm_controlled,
       mtu                  => $mtu,
-      options_extra_redhat => $options_extra_redhat,
+      method               => 'static',
+      hotplug              => 'false',
+      options              => {
+        'TYPE'           => 'Infiniband',
+        'NM_CONTROLLED'  => $_nm_controlled,
+        'CONNECTED_MODE' => $connected_mode,
+      }
     }
   }
 }

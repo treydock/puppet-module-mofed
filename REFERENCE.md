@@ -9,8 +9,8 @@
 #### Public Classes
 
 * [`mofed`](#mofed): Manage Mellanox OFED
-* [`mofed::opensm`](#mofedopensm): Manage OpenSM
-* [`mofed::srp`](#mofedsrp): Manage SRP
+* [`mofed::opensm`](#mofed--opensm): Manage OpenSM
+* [`mofed::srp`](#mofed--srp): Manage SRP
 
 #### Private Classes
 
@@ -21,7 +21,7 @@
 
 ### Defined types
 
-* [`mofed::interface`](#mofedinterface): Manage IPoIB interface
+* [`mofed::interface`](#mofed--interface): Manage IPoIB interface
 
 ## Classes
 
@@ -44,46 +44,46 @@ class { 'mofed':
 
 The following parameters are available in the `mofed` class:
 
-* [`manage_repo`](#manage_repo)
-* [`repo_baseurl`](#repo_baseurl)
-* [`repo_gpgcheck`](#repo_gpgcheck)
-* [`repo_gpgkey`](#repo_gpgkey)
-* [`repo_exclude`](#repo_exclude)
-* [`repo_priority`](#repo_priority)
-* [`manage_packages`](#manage_packages)
-* [`package_ensure`](#package_ensure)
-* [`package_name`](#package_name)
-* [`extra_packages`](#extra_packages)
-* [`extra_packages_hiera_merge`](#extra_packages_hiera_merge)
-* [`manage_service`](#manage_service)
-* [`restart_service`](#restart_service)
-* [`openibd_service_name`](#openibd_service_name)
-* [`openibd_service_ensure`](#openibd_service_ensure)
-* [`openibd_service_enable`](#openibd_service_enable)
-* [`openibd_service_hasstatus`](#openibd_service_hasstatus)
-* [`openibd_service_hasrestart`](#openibd_service_hasrestart)
-* [`manage_config`](#manage_config)
-* [`openib_config_path`](#openib_config_path)
-* [`openib_shellvars`](#openib_shellvars)
-* [`interfaces`](#interfaces)
+* [`manage_repo`](#-mofed--manage_repo)
+* [`repo_baseurl`](#-mofed--repo_baseurl)
+* [`repo_gpgcheck`](#-mofed--repo_gpgcheck)
+* [`repo_gpgkey`](#-mofed--repo_gpgkey)
+* [`repo_exclude`](#-mofed--repo_exclude)
+* [`repo_priority`](#-mofed--repo_priority)
+* [`manage_packages`](#-mofed--manage_packages)
+* [`package_ensure`](#-mofed--package_ensure)
+* [`package_name`](#-mofed--package_name)
+* [`extra_packages`](#-mofed--extra_packages)
+* [`extra_packages_hiera_merge`](#-mofed--extra_packages_hiera_merge)
+* [`manage_service`](#-mofed--manage_service)
+* [`restart_service`](#-mofed--restart_service)
+* [`openibd_service_name`](#-mofed--openibd_service_name)
+* [`openibd_service_ensure`](#-mofed--openibd_service_ensure)
+* [`openibd_service_enable`](#-mofed--openibd_service_enable)
+* [`openibd_service_hasstatus`](#-mofed--openibd_service_hasstatus)
+* [`openibd_service_hasrestart`](#-mofed--openibd_service_hasrestart)
+* [`manage_config`](#-mofed--manage_config)
+* [`openib_config_path`](#-mofed--openib_config_path)
+* [`openib_shellvars`](#-mofed--openib_shellvars)
+* [`interfaces`](#-mofed--interfaces)
 
-##### <a name="manage_repo"></a>`manage_repo`
+##### <a name="-mofed--manage_repo"></a>`manage_repo`
 
 Data type: `Boolean`
 
 Boolean to set if MOFED repo should be managed
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="repo_baseurl"></a>`repo_baseurl`
+##### <a name="-mofed--repo_baseurl"></a>`repo_baseurl`
 
 Data type: `Optional[String]`
 
 The baseurl of the yumrepo resource
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="repo_gpgcheck"></a>`repo_gpgcheck`
+##### <a name="-mofed--repo_gpgcheck"></a>`repo_gpgcheck`
 
 Data type: `Enum['1','0']`
 
@@ -91,39 +91,39 @@ The gpgcheck of the yumrepo resource
 
 Default value: `'1'`
 
-##### <a name="repo_gpgkey"></a>`repo_gpgkey`
+##### <a name="-mofed--repo_gpgkey"></a>`repo_gpgkey`
 
 Data type: `Optional[String]`
 
 The gpgkey of the yumrepo resource
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="repo_exclude"></a>`repo_exclude`
+##### <a name="-mofed--repo_exclude"></a>`repo_exclude`
 
 Data type: `Optional[String]`
 
 The exclude of the yumrepo resource
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="repo_priority"></a>`repo_priority`
+##### <a name="-mofed--repo_priority"></a>`repo_priority`
 
 Data type: `Optional[String]`
 
 The priority of the yumrepo resource
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="manage_packages"></a>`manage_packages`
+##### <a name="-mofed--manage_packages"></a>`manage_packages`
 
 Data type: `Boolean`
 
 Boolean to determine if packages should be managed
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-mofed--package_ensure"></a>`package_ensure`
 
 Data type: `String`
 
@@ -131,7 +131,7 @@ The package ensure property
 
 Default value: `'present'`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-mofed--package_name"></a>`package_name`
 
 Data type: `String`
 
@@ -139,39 +139,39 @@ The MOFED package name to install
 
 Default value: `'mlnx-ofed-basic'`
 
-##### <a name="extra_packages"></a>`extra_packages`
+##### <a name="-mofed--extra_packages"></a>`extra_packages`
 
 Data type: `Optional[Array]`
 
 An array of additional packages to install
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extra_packages_hiera_merge"></a>`extra_packages_hiera_merge`
+##### <a name="-mofed--extra_packages_hiera_merge"></a>`extra_packages_hiera_merge`
 
 Data type: `Boolean`
 
 Boolean that sets if extra_packages should have values merged from hiera
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="manage_service"></a>`manage_service`
+##### <a name="-mofed--manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
 Boolean that determines if the openibd service should be managed
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="restart_service"></a>`restart_service`
+##### <a name="-mofed--restart_service"></a>`restart_service`
 
 Data type: `Boolean`
 
 Boolean that sets of openibd should be restarted
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="openibd_service_name"></a>`openibd_service_name`
+##### <a name="-mofed--openibd_service_name"></a>`openibd_service_name`
 
 Data type: `String`
 
@@ -179,7 +179,7 @@ Name of the openibd service
 
 Default value: `'openibd'`
 
-##### <a name="openibd_service_ensure"></a>`openibd_service_ensure`
+##### <a name="-mofed--openibd_service_ensure"></a>`openibd_service_ensure`
 
 Data type: `String`
 
@@ -187,39 +187,39 @@ openibd service ensure property
 
 Default value: `'running'`
 
-##### <a name="openibd_service_enable"></a>`openibd_service_enable`
+##### <a name="-mofed--openibd_service_enable"></a>`openibd_service_enable`
 
 Data type: `Boolean`
 
 openibd service enable property
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="openibd_service_hasstatus"></a>`openibd_service_hasstatus`
+##### <a name="-mofed--openibd_service_hasstatus"></a>`openibd_service_hasstatus`
 
 Data type: `Boolean`
 
 openibd service hasstatus property
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="openibd_service_hasrestart"></a>`openibd_service_hasrestart`
+##### <a name="-mofed--openibd_service_hasrestart"></a>`openibd_service_hasrestart`
 
 Data type: `Boolean`
 
 openibd service hasrestart property
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="manage_config"></a>`manage_config`
+##### <a name="-mofed--manage_config"></a>`manage_config`
 
 Data type: `Boolean`
 
 Boolean that sets if configs should be managed
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="openib_config_path"></a>`openib_config_path`
+##### <a name="-mofed--openib_config_path"></a>`openib_config_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -227,7 +227,7 @@ Path to openib.conf
 
 Default value: `'/etc/infiniband/openib.conf'`
 
-##### <a name="openib_shellvars"></a>`openib_shellvars`
+##### <a name="-mofed--openib_shellvars"></a>`openib_shellvars`
 
 Data type: `Hash`
 
@@ -235,7 +235,7 @@ Hash of shellvar resources
 
 Default value: `{}`
 
-##### <a name="interfaces"></a>`interfaces`
+##### <a name="-mofed--interfaces"></a>`interfaces`
 
 Data type: `Hash`
 
@@ -243,7 +243,7 @@ Hash of mofed::interface resources
 
 Default value: `{}`
 
-### <a name="mofedopensm"></a>`mofed::opensm`
+### <a name="mofed--opensm"></a>`mofed::opensm`
 
 Manage OpenSM
 
@@ -261,11 +261,11 @@ class { 'mofed::opensm':
 
 The following parameters are available in the `mofed::opensm` class:
 
-* [`ensure`](#ensure)
-* [`ports`](#ports)
-* [`sweep`](#sweep)
+* [`ensure`](#-mofed--opensm--ensure)
+* [`ports`](#-mofed--opensm--ports)
+* [`sweep`](#-mofed--opensm--sweep)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-mofed--opensm--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent', 'disabled']`
 
@@ -275,7 +275,7 @@ State of opensm.  `present` will run opensm.
 
 Default value: `'present'`
 
-##### <a name="ports"></a>`ports`
+##### <a name="-mofed--opensm--ports"></a>`ports`
 
 Data type: `Array`
 
@@ -283,7 +283,7 @@ Ports used by opensm
 
 Default value: `[]`
 
-##### <a name="sweep"></a>`sweep`
+##### <a name="-mofed--opensm--sweep"></a>`sweep`
 
 Data type: `Integer`
 
@@ -291,7 +291,7 @@ Value passsed to opensm `-s` argument.
 
 Default value: `10`
 
-### <a name="mofedsrp"></a>`mofed::srp`
+### <a name="mofed--srp"></a>`mofed::srp`
 
 Manage SRP
 
@@ -309,12 +309,12 @@ class { 'mofed::srp':
 
 The following parameters are available in the `mofed::srp` class:
 
-* [`ensure`](#ensure)
-* [`ports`](#ports)
-* [`srp_daemon_config`](#srp_daemon_config)
-* [`ib_srp_options`](#ib_srp_options)
+* [`ensure`](#-mofed--srp--ensure)
+* [`ports`](#-mofed--srp--ports)
+* [`srp_daemon_config`](#-mofed--srp--srp_daemon_config)
+* [`ib_srp_options`](#-mofed--srp--ib_srp_options)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-mofed--srp--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent', 'disabled']`
 
@@ -324,7 +324,7 @@ State of srp.  `present` will run opensm.
 
 Default value: `'present'`
 
-##### <a name="ports"></a>`ports`
+##### <a name="-mofed--srp--ports"></a>`ports`
 
 Data type: `Array`
 
@@ -332,25 +332,25 @@ Ports used by srp daemon.
 
 Default value: `[]`
 
-##### <a name="srp_daemon_config"></a>`srp_daemon_config`
+##### <a name="-mofed--srp--srp_daemon_config"></a>`srp_daemon_config`
 
 Data type: `Optional[Variant[String, Array]]`
 
 Define lines in srp_daemon.conf
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ib_srp_options"></a>`ib_srp_options`
+##### <a name="-mofed--srp--ib_srp_options"></a>`ib_srp_options`
 
 Data type: `Optional[Hash[String, Variant[String,Integer], 1]]`
 
 Options passed to ib_srp kernel module
 
-Default value: ``undef``
+Default value: `undef`
 
 ## Defined types
 
-### <a name="mofedinterface"></a>`mofed::interface`
+### <a name="mofed--interface"></a>`mofed::interface`
 
 Manage IPoIB interface
 
@@ -371,43 +371,43 @@ mofed::interface { 'ib0':
 
 The following parameters are available in the `mofed::interface` defined type:
 
-* [`ipaddr`](#ipaddr)
-* [`netmask`](#netmask)
-* [`gateway`](#gateway)
-* [`ensure`](#ensure)
-* [`enable`](#enable)
-* [`nm_controlled`](#nm_controlled)
-* [`connected_mode`](#connected_mode)
-* [`mtu`](#mtu)
-* [`bonding`](#bonding)
-* [`bonding_slaves`](#bonding_slaves)
-* [`bonding_opts`](#bonding_opts)
+* [`ipaddr`](#-mofed--interface--ipaddr)
+* [`netmask`](#-mofed--interface--netmask)
+* [`gateway`](#-mofed--interface--gateway)
+* [`ensure`](#-mofed--interface--ensure)
+* [`enable`](#-mofed--interface--enable)
+* [`nm_controlled`](#-mofed--interface--nm_controlled)
+* [`connected_mode`](#-mofed--interface--connected_mode)
+* [`mtu`](#-mofed--interface--mtu)
+* [`bonding`](#-mofed--interface--bonding)
+* [`bonding_slaves`](#-mofed--interface--bonding_slaves)
+* [`bonding_opts`](#-mofed--interface--bonding_opts)
 
-##### <a name="ipaddr"></a>`ipaddr`
+##### <a name="-mofed--interface--ipaddr"></a>`ipaddr`
 
-Data type: `Optional[Stdlib::Compat::Ip_address]`
+Data type: `Optional[Stdlib::IP::Address]`
 
 IP address, required when ensure=present
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="netmask"></a>`netmask`
+##### <a name="-mofed--interface--netmask"></a>`netmask`
 
-Data type: `Optional[Stdlib::Compat::Ip_address]`
+Data type: `Optional[Stdlib::IP::Address]`
 
 Netmask address, required when ensure=present
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="gateway"></a>`gateway`
+##### <a name="-mofed--interface--gateway"></a>`gateway`
 
-Data type: `Optional[Stdlib::Compat::Ip_address]`
+Data type: `Optional[Stdlib::IP::Address]`
 
 Gateway address.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-mofed--interface--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -415,23 +415,23 @@ Interface ensure value.
 
 Default value: `'present'`
 
-##### <a name="enable"></a>`enable`
+##### <a name="-mofed--interface--enable"></a>`enable`
 
 Data type: `Boolean`
 
 Boolean of whether to enable the interface at boot.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="nm_controlled"></a>`nm_controlled`
+##### <a name="-mofed--interface--nm_controlled"></a>`nm_controlled`
 
-Data type: `Optional[Variant[Boolean, Enum['yes','no']]]`
+Data type: `Optional[Enum['yes','no']]`
 
 Value for nm_controlled on interface
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="connected_mode"></a>`connected_mode`
+##### <a name="-mofed--interface--connected_mode"></a>`connected_mode`
 
 Data type: `Enum['yes', 'no']`
 
@@ -439,23 +439,23 @@ The value for setting interface to connected mode.
 
 Default value: `'yes'`
 
-##### <a name="mtu"></a>`mtu`
+##### <a name="-mofed--interface--mtu"></a>`mtu`
 
 Data type: `Optional[Integer]`
 
 The MTU of the interface.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="bonding"></a>`bonding`
+##### <a name="-mofed--interface--bonding"></a>`bonding`
 
 Data type: `Boolean`
 
 If this interface is a bonding interface
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="bonding_slaves"></a>`bonding_slaves`
+##### <a name="-mofed--interface--bonding_slaves"></a>`bonding_slaves`
 
 Data type: `Array[String]`
 
@@ -463,7 +463,7 @@ Array of interfaces that should be enslaved in the bonding interface
 
 Default value: `[]`
 
-##### <a name="bonding_opts"></a>`bonding_opts`
+##### <a name="-mofed--interface--bonding_opts"></a>`bonding_opts`
 
 Data type: `String`
 

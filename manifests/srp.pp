@@ -29,6 +29,7 @@ class mofed::srp (
       $package_ensure = 'present'
       $file_ensure    = 'file'
       $srp_load       = 'yes'
+      $unit_ensure    = 'present'
       $service_ensure = 'running'
       $service_enable = true
     }
@@ -36,6 +37,7 @@ class mofed::srp (
       $package_ensure = 'absent'
       $file_ensure    = 'absent'
       $srp_load       = 'no'
+      $unit_ensure    = 'absent'
       $service_ensure = 'stopped'
       $service_enable = false
     }
@@ -43,6 +45,7 @@ class mofed::srp (
       $package_ensure = 'present'
       $file_ensure    = 'file'
       $srp_load       = 'yes'
+      $unit_ensure    = 'present'
       $service_ensure = 'stopped'
       $service_enable = false
     }
@@ -138,7 +141,7 @@ class mofed::srp (
     }
 
     systemd::unit_file { 'srpd@.service':
-      ensure => $file_ensure,
+      ensure => $unit_ensure,
       source => 'puppet:///modules/mofed/srp/srpd@.service',
     }
 

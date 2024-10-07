@@ -16,7 +16,7 @@ describe 'mofed::srp' do
 
       it do
         is_expected.to contain_package('srptools').with(ensure: 'present',
-                                                        require: 'Class[Mofed::Repo]')
+                                                        require: 'Class[Mofed::Repo]',)
       end
 
       it do
@@ -30,12 +30,12 @@ describe 'mofed::srp' do
 
       it do
         is_expected.to contain_file('/etc/rsyslog.d/srp_daemon.conf').with(ensure: 'absent',
-                                                                           require: 'Package[srptools]')
+                                                                           require: 'Package[srptools]',)
       end
 
       it do
         is_expected.to contain_rsyslog__snippet('60_srp_daemon.conf').with(ensure: 'file',
-                                                                           require: 'Package[srptools]')
+                                                                           require: 'Package[srptools]',)
       end
 
       it do
@@ -43,7 +43,7 @@ describe 'mofed::srp' do
                                                                  owner: 'root',
                                                                  group: 'root',
                                                                  mode: '0644',
-                                                                 require: 'Package[srptools]')
+                                                                 require: 'Package[srptools]',)
       end
 
       it do
@@ -55,7 +55,7 @@ describe 'mofed::srp' do
                                                                 owner: 'root',
                                                                 group: 'root',
                                                                 mode: '0644',
-                                                                require: 'Package[srptools]')
+                                                                require: 'Package[srptools]',)
       end
 
       it do
@@ -64,7 +64,7 @@ describe 'mofed::srp' do
 
       it do
         is_expected.to contain_file('/etc/modprobe.d/ib_srp.conf').with(ensure: 'absent',
-                                                                        require: 'Package[srptools]')
+                                                                        require: 'Package[srptools]',)
       end
 
       it do
@@ -72,7 +72,7 @@ describe 'mofed::srp' do
                                                     enable: 'true',
                                                     hasstatus: 'true',
                                                     hasrestart: 'true',
-                                                    require: 'Package[srptools]')
+                                                    require: 'Package[srptools]',)
       end
 
       it do
@@ -82,7 +82,7 @@ describe 'mofed::srp' do
       context 'when ports defined' do
         let(:params) do
           {
-            ports: ['mlx5_0 1', 'mlx5_0 2']
+            ports: ['mlx5_0 1', 'mlx5_0 2'],
           }
         end
 
@@ -91,8 +91,8 @@ describe 'mofed::srp' do
         it do
           verify_exact_contents(catalogue, '/etc/sysconfig/srpd', [
                                   'PORT_1=mlx5_0 1',
-                                  'PORT_2=mlx5_0 2'
-                                ])
+                                  'PORT_2=mlx5_0 2',
+                                ],)
         end
 
         it do
@@ -100,12 +100,12 @@ describe 'mofed::srp' do
                                                       enable: 'false',
                                                       hasstatus: 'true',
                                                       hasrestart: 'true',
-                                                      require: 'Package[srptools]')
+                                                      require: 'Package[srptools]',)
         end
 
         if facts[:operatingsystemrelease].to_i >= 7.0
           it do
-            is_expected.to contain_systemd__unit_file('srpd@.service').with_ensure('file')
+            is_expected.to contain_systemd__unit_file('srpd@.service').with_ensure('present')
           end
 
           it do
@@ -114,7 +114,7 @@ describe 'mofed::srp' do
                                                           hasstatus: 'true',
                                                           hasrestart: 'true',
                                                           require: ['File[/etc/modprobe.d/ib_srp.conf]'],
-                                                          subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'])
+                                                          subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'],)
           end
 
           it do
@@ -123,7 +123,7 @@ describe 'mofed::srp' do
                                                           hasstatus: 'true',
                                                           hasrestart: 'true',
                                                           require: ['File[/etc/modprobe.d/ib_srp.conf]'],
-                                                          subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'])
+                                                          subscribe: ['File[/etc/sysconfig/srpd]', 'File[/etc/srp_daemon.conf]', 'Systemd::Unit_file[srpd@.service]'],)
           end
         end
       end
@@ -141,7 +141,7 @@ describe 'mofed::srp' do
           let(:params) do
             {
               ensure: 'disabled',
-              ports: ['mlx5_0 1', 'mlx5_0 2']
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
             }
           end
 
@@ -174,7 +174,7 @@ describe 'mofed::srp' do
           let(:params) do
             {
               ensure: 'absent',
-              ports: ['mlx5_0 1', 'mlx5_0 2']
+              ports: ['mlx5_0 1', 'mlx5_0 2'],
             }
           end
 

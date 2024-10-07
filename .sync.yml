@@ -7,6 +7,8 @@ appveyor.yml:
   delete: true
 spec/acceptance/nodesets/debian-11.yml:
   delete: true
+spec/acceptance/nodesets/debian-12.yml:
+  delete: true
 spec/acceptance/nodesets/ubuntu-2004.yml:
   delete: true
 spec/acceptance/nodesets/ubuntu-2204.yml:

@@ -25,8 +25,8 @@
       "version_requirement": ">= 3.5.0 <6.0.0"
     },
     {
-      "name": "example42/network",
-      "version_requirement": ">= 3.0.0 <4.0.0"
+      "name": "puppet/network",
+      "version_requirement": ">= 2.1.0 <4.0.0"
     }
   ],
   "operatingsystem_support": [
@@ -73,5 +73,5 @@
   ],
   "pdk-version": "2.7.1",
   "template-url": "https://github.com/treydock/pdk-templates.git#master",
-  "template-ref": "heads/master-0-g52b1622"
+  "template-ref": "heads/master-0-gc7a6913"
 }

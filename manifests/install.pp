@@ -9,13 +9,13 @@ class mofed::install {
     }
 
     if $mofed::extra_packages_hiera_merge {
-      $extra_packages = hiera_array('mofed::extra_packages', [])
+      $extra_packages = lookup('mofed::extra_packages', Array, 'unique', [])
     } else {
       $extra_packages = $mofed::extra_packages
     }
 
     if $extra_packages {
-      ensure_packages($extra_packages)
+      stdlib::ensure_packages($extra_packages)
     }
   }
 }

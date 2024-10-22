@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.1](https://github.com/treydock/puppet-module-mofed/tree/v5.0.1) (2024-10-22)
+
+[Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/v5.0.0...v5.0.1)
+
+### Fixed
+
+- Actually use stdlib 9.x function [\#28](https://github.com/treydock/puppet-module-mofed/pull/28) ([treydock](https://github.com/treydock))
+
 ## [v5.0.0](https://github.com/treydock/puppet-module-mofed/tree/v5.0.0) (2024-10-22)
 
 [Full Changelog](https://github.com/treydock/puppet-module-mofed/compare/v4.0.0...v5.0.0)

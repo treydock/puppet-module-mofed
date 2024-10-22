@@ -13,3 +13,5 @@ spec/acceptance/nodesets/ubuntu-2004.yml:
   delete: true
 spec/acceptance/nodesets/ubuntu-2204.yml:
   delete: true
+spec/acceptance/nodesets/ubuntu-2404.yml:
+  delete: true

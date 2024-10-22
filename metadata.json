@@ -10,15 +10,15 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.1 <9.0.0"
+      "version_requirement": ">= 9.0.0 <10.0.0"
     },
     {
       "name": "puppet/augeasproviders_shellvar",
-      "version_requirement": ">= 5.0.0 <6.0.0"
+      "version_requirement": ">= 5.0.0 <7.0.0"
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 0.3.0 <7.0.0"
+      "version_requirement": ">= 0.3.0 <8.0.0"
     },
     {
       "name": "saz/rsyslog",
@@ -33,15 +33,8 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "7",
         "8",
         "9"
-      ]
-    },
-    {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "7"
       ]
     },
     {
@@ -73,5 +66,5 @@
   ],
   "pdk-version": "2.7.1",
   "template-url": "https://github.com/treydock/pdk-templates.git#master",
-  "template-ref": "heads/master-0-gc7a6913"
+  "template-ref": "heads/master-0-gd2de99e"
 }

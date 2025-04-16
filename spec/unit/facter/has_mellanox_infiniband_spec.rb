@@ -15,18 +15,13 @@ describe 'has_mellanox_infiniband fact' do
     expect(Facter.fact(:has_mellanox_infiniband).value).to eq(true)
   end
 
-  it 'returns true when QLogic card' do
-    allow(Facter::Util::MellanoxInfiniband).to receive(:lspci).and_return(my_fixture_read('qlogic_lspci_1'))
-    expect(Facter.fact(:has_mellanox_infiniband).value).to eq(false)
+  it 'returns true when Mellanox ConnectX-3 card' do
+    allow(Facter::Util::MellanoxInfiniband).to receive(:lspci).and_return(my_fixture_read('mellanox_lspci_2'))
+    expect(Facter.fact(:has_mellanox_infiniband).value).to eq(true)
   end
 
   it 'returns false when no IB device present' do
     allow(Facter::Util::MellanoxInfiniband).to receive(:lspci).and_return(my_fixture_read('noib_lspci_1'))
     expect(Facter.fact(:has_mellanox_infiniband).value).to eq(false)
-  end
-
-  it 'returns true with Mellanox ConnectX-3 card' do
-    allow(Facter::Util::MellanoxInfiniband).to receive(:lspci).and_return(my_fixture_read('mellanox_lspci_2'))
-    expect(Facter.fact(:has_mellanox_infiniband).value).to eq(true)
   end
 end

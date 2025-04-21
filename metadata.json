@@ -1,6 +1,6 @@
 {
   "name": "treydock-mofed",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "author": "treydock",
   "summary": "Mellanox OFED Puppet module",
   "license": "Apache-2.0",

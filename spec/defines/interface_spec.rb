@@ -135,7 +135,7 @@ describe 'mofed::interface' do
             method: 'static',
             hotplug: false,
             options: {
-              'TYPE' => 'Infiniband',
+              'TYPE' => 'Bond',
               'BONDING_MASTER' => 'yes',
               'BONDING_OPTS' => 'mode=active-backup miimon=100',
               'CONNECTED_MODE' => 'yes',

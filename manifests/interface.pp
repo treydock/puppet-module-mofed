@@ -94,7 +94,7 @@ define mofed::interface (
       method    => 'static',
       hotplug   => false,
       options   => {
-        'TYPE'           => 'Infiniband',
+        'TYPE'           => 'Bond',
         'BONDING_MASTER' => 'yes',
         'BONDING_OPTS'   => $bonding_opts,
         'GATEWAY'        => $gateway,
